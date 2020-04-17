@@ -40,9 +40,39 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth', 'web']], function () {
+
     Route::get('admin/lista-produtos', function () {
         return view('admin.lista-produtos');
     })->name('admin.lista-produtos');
+
+    Route::get('admin/form-produtos', function () {
+        return view('admin.form-produtos');
+    })->name('admin.form-produtos');
+
+    Route::get('admin/lista-assinaturas', function () {
+        return view('admin.lista-assinaturas');
+    })->name('admin.lista-assinaturas');
+
+    Route::get('admin/form-assinaturas', function () {
+        return view('admin.form-assinaturas');
+    })->name('admin.form-assinaturas');
+
+    Route::get('admin/lista-banners', function () {
+        return view('admin.lista-banners');
+    })->name('admin.lista-banners');
+
+    Route::get('admin/form-banners', function () {
+        return view('admin.form-banners');
+    })->name('admin.form-banners');
+
+    Route::get('admin/lista-redesociais', function () {
+        return view('admin.lista-redesociais');
+    })->name('admin.lista-redesociais');
+
+    Route::get('admin/form-redesociais', function () {
+        return view('admin.form-redesociais');
+    })->name('admin.form-redesociais');
+
     // Route::get('admin/listar', 'AdminController@produtos')->name('admin.construtora.produtos');
     // Route::get('construtora/criar', 'ConstrutoraController@create')->name('admin.construtora.create');
     // Route::post('construtora/store', 'ConstrutoraController@store')->name('admin.construtora.store');

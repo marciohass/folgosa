@@ -110,12 +110,12 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Catálogo</h1>
+                <h1 class="m-0 text-dark">Assinaturas</h1>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Catálogo</li>
+                  <li class="breadcrumb-item active">Assinaturas</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -133,7 +133,7 @@
                   <!-- jquery validation -->
                   <div class="card card-primary">
                     <div class="card-header">
-                      <h3 class="card-title">Cadastro de Produtos </h3>
+                      <h3 class="card-title">Cadastro de Assinaturas </h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -160,21 +160,7 @@
                             </div>
                         </div>
                         <div class="row col-sm-12">
-                            <div class="col-sm-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                    <label class="form-check-label" for="exampleCheck2">Novidade</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                    <label class="form-check-label" for="exampleCheck2">Promoção</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-sm-12">
-                            <div class="form-group col-sm-4 mt-3">
+                            <div class="form-group col-sm-4">
                                 <label for="exampleInputFile">Valor</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -184,19 +170,7 @@
                                     <div class="input-group-append">
                                       <span class="input-group-text">.00</span>
                                     </div>
-                                  </div>
-                            </div>
-                            <div class="form-group col-sm-4 mt-3">
-                                <label for="exampleInputFile">Valor da promoção</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">$</span>
-                                    </div>
-                                    <input type="text" class="form-control">
-                                    <div class="input-group-append">
-                                      <span class="input-group-text">.00</span>
-                                    </div>
-                                  </div>
+                                </div>
                             </div>
                         </div>
                       </div>

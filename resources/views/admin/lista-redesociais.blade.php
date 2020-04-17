@@ -110,12 +110,12 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Catálogo</h1>
+                <h1 class="m-0 text-dark">Redes Sociais</h1>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Catálogo</li>
+                  <li class="breadcrumb-item active">Redes Sociais</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -129,8 +129,8 @@
 
             <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Listagem do catálogo</h3>
-                  <a class="btn btn-primary" href="{{ route('admin.form-produtos') }}" role="button">Cadastro</a>
+                  <h3 class="card-title">Listagem de redes sociais</h3>
+                  <a class="btn btn-primary" href="{{ route('admin.form-redesociais') }}" role="button">Cadastro</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">

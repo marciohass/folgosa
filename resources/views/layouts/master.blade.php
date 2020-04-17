@@ -250,7 +250,9 @@
   </footer>
 </div>
 <!-- ./wrapper -->
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
 
-<script src="http://localhost/folgosa/public/js/app.js"></script>
+<!--<script src="http://localhost/folgosa/public/js/app.js"></script>-->
 </body>
 </html>

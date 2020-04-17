@@ -40,7 +40,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                  <a href="{{ route('admin.lista-assinaturas') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Assinaturas</p>
                 </a>
@@ -52,13 +52,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+              <a href="{{ route('admin.lista-banners') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Banners</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                  <a href="{{ route('admin.lista-redesociais') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>RedesSociais</p>
                 </a>

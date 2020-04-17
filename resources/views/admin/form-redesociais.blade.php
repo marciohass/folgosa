@@ -110,12 +110,12 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Catálogo</h1>
+                <h1 class="m-0 text-dark">Redes Sociais</h1>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Catálogo</li>
+                  <li class="breadcrumb-item active">Redes Sociais</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -133,22 +133,18 @@
                   <!-- jquery validation -->
                   <div class="card card-primary">
                     <div class="card-header">
-                      <h3 class="card-title">Cadastro de Produtos </h3>
+                      <h3 class="card-title">Cadastro de redes sociais </h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <form role="form" id="quickForm">
                       <div class="card-body">
                         <div class="form-group col-sm-12">
-                          <label for="exampleInputEmail1">Título</label>
-                          <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Título">
+                          <label for="exampleInputEmail1">Link</label>
+                          <input type="text" name="link" class="form-control" id="link" placeholder="Link...">
                         </div>
                         <div class="form-group col-sm-12">
-                          <label for="descricao">Descrição</label>
-                          <input type="text" name="descricao" class="form-control" id="descricao" placeholder="Descrição">
-                        </div>
-                        <div class="form-group col-sm-12">
-                            <label for="exampleInputFile">Foto</label>
+                            <label for="exampleInputFile">Logo da rede social</label>
                             <div class="input-group">
                               <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="exampleInputFile">
@@ -157,46 +153,6 @@
                               <div class="input-group-append">
                                 <span class="input-group-text" id="">Upload</span>
                               </div>
-                            </div>
-                        </div>
-                        <div class="row col-sm-12">
-                            <div class="col-sm-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                    <label class="form-check-label" for="exampleCheck2">Novidade</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                    <label class="form-check-label" for="exampleCheck2">Promoção</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-sm-12">
-                            <div class="form-group col-sm-4 mt-3">
-                                <label for="exampleInputFile">Valor</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">$</span>
-                                    </div>
-                                    <input type="text" class="form-control">
-                                    <div class="input-group-append">
-                                      <span class="input-group-text">.00</span>
-                                    </div>
-                                  </div>
-                            </div>
-                            <div class="form-group col-sm-4 mt-3">
-                                <label for="exampleInputFile">Valor da promoção</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">$</span>
-                                    </div>
-                                    <input type="text" class="form-control">
-                                    <div class="input-group-append">
-                                      <span class="input-group-text">.00</span>
-                                    </div>
-                                  </div>
                             </div>
                         </div>
                       </div>
