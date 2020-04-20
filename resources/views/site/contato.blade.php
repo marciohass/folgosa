@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputTelefone">Telefone</label>
-                        <input type="text" class="form-control" id="inputTelefone" placeholder="(11) 99999-9999" onkeypress="$(this).mask('(00) 00000-0000');">
+                        <input type="text" class="form-control" id="inputTelefone" onkeypress="$(this).mask('(00) 00000-0000');">
                         <small id="telefoneHelpBlock" class="form-text text-muted">
                             Digite apenas os números do telefone.
                         </small>

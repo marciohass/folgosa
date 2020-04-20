@@ -133,12 +133,14 @@
                   <!-- jquery validation -->
                   <div class="card card-primary">
                     <div class="card-header">
-                      <h3 class="card-title">Cadastro de Produtos </h3>
+                      <h3 class="card-title">Edição de Produtos </h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{route('produtos.store')}}" method="post" enctype="multipart/form-data">
-                      <div class="card-body">
+                    <form action="{{route('produtos.update', $produto->id)}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
                             <ul>
@@ -157,53 +159,55 @@
 
                         <div class="form-group col-sm-12">
                             @csrf
-                          <label for="exampleInputEmail1">Título</label>
-                          <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Título" required>
+                          <label for="titulo">Título</label>
+                        <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Título" value="{{ $produto->titulo }}" required>
                         </div>
                         <div class="form-group col-sm-12">
                           <label for="descricao">Descrição</label>
-                          <input type="text" name="descricao" class="form-control" id="descricao" placeholder="Descrição">
+                        <input type="text" name="descricao" class="form-control" id="descricao" value="{{ $produto->descricao }}" placeholder="Descrição">
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right">Select Profile Image</label>
                             <div class="col-md-8">
-                             <input type="file" name="image" />
+                                <input type="file" name="image" />
+                                <img src="{{ URL::to('/') }}/image_produtos/{{ $produto->foto }}" class="img-thumbnail" width="100" />
+                                <input type="hidden" name="hidden_image" value="{{ $produto->foto }}" />
                             </div>
                         </div>
                         <div class="row col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="novidade" name="novidade" value="1">
-                                    <label class="form-check-label" for="exampleCheck2">Novidade</label>
+                                    <input type="checkbox" class="form-check-input" id="novidade" name="novidade" value="1" @if($produto->novidade == 1) {{ "checked" }} @endif>
+                                    <label class="form-check-label" for="novidade">Novidade</label>
                                 </div>
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="promocao" name="promocao" value="1">
-                                    <label class="form-check-label" for="exampleCheck2">Promoção</label>
+                                    <input type="checkbox" class="form-check-input" id="promocao" name="promocao" value="1" @if($produto->promocao == 1) {{ "checked" }} @endif>
+                                    <label class="form-check-label" for="promocao">Promoção</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row col-sm-12">
                             <div class="form-group col-sm-4 mt-3">
-                                <label for="exampleInputFile">Valor</label>
+                                <label for="valor">Valor</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">$</span>
                                     </div>
-                                    <input type="text" class="form-control" id="valor" name="valor" required>
+                                <input type="text" class="form-control" id="valor" name="valor" value="{{ $produto->valor }}" required>
                                     <div class="input-group-append">
                                       <span class="input-group-text">.00</span>
                                     </div>
                                   </div>
                             </div>
                             <div class="form-group col-sm-4 mt-3">
-                                <label for="exampleInputFile">Valor da promoção</label>
+                                <label for="valor_promocao">Valor da promoção</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">$</span>
                                     </div>
-                                    <input type="text" class="form-control" id="valor_promocao" name="valor_promocao">
+                                <input type="text" class="form-control" id="valor_promocao" name="valor_promocao" value="{{ $produto->valor_promocao }}">
                                     <div class="input-group-append">
                                       <span class="input-group-text">.00</span>
                                     </div>
@@ -213,7 +217,7 @@
                       </div>
                       <!-- /.card-body -->
                       <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" data-placement="top">Editar</button>
                       </div>
                     </form>
                   </div>

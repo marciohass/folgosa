@@ -45,7 +45,7 @@
 
       @extends('site.master.footer')
 
-      <script>
+    <script>
         (function() {
         'use strict';
         window.addEventListener('load', function() {

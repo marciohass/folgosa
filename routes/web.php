@@ -41,13 +41,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth', 'web']], function () {
 
-    Route::get('admin/lista-produtos', function () {
-        return view('admin.lista-produtos');
-    })->name('admin.lista-produtos');
-
-    Route::get('admin/form-produtos', function () {
-        return view('admin.form-produtos');
-    })->name('admin.form-produtos');
+    // Rotas do catálogo de produtos
+    Route::get('admin/lista-produtos', 'ProdutosController@index')->name('admin.lista-produtos');
+    Route::get('admin/form-produtos', 'ProdutosController@create')->name('admin.form-produtos');
+    Route::post('produtos/store', 'ProdutosController@store')->name('produtos.store');
+    Route::get('admin/form-edit-produtos/{id}', 'ProdutosController@edit')->name('admin.form-edit-produtos');
+    Route::put('produtos/update/{id}', 'ProdutosController@update')->name('produtos.update');
+    Route::delete('produtos/destroy/{id}', 'ProdutosController@destroy')->name('produtos.destroy');
 
     Route::get('admin/lista-assinaturas', function () {
         return view('admin.lista-assinaturas');
@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth', 'web']], function () {
         return view('admin.form-redesociais');
     })->name('admin.form-redesociais');
 
-    // Route::get('admin/listar', 'AdminController@produtos')->name('admin.construtora.produtos');
+
     // Route::get('construtora/criar', 'ConstrutoraController@create')->name('admin.construtora.create');
     // Route::post('construtora/store', 'ConstrutoraController@store')->name('admin.construtora.store');
     // Route::get('construtora/fotos/{id}', 'ConstrutoraController@show')->name('admin.construtora.fotos');
