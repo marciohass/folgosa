@@ -138,6 +138,6 @@ class ProdutosController extends Controller
         $data = Produtos::findOrFail($id);
         $data->delete();
 
-        return redirect('admin/lista-produtos')->with('success', 'Produto deletado com sucesso!');
+        return redirect('admin/lista-produtos')->with('success', 'Produto excluído com sucesso!');
     }
 }

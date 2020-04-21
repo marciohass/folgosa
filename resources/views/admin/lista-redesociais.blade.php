@@ -1,4 +1,25 @@
-@extends('admin.master.header')
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>Admin | Dashboard</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../../fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../../../datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../../../datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="http://localhost/folgosa/public/css/app.css">
+
+</head>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -18,7 +39,7 @@
               <a href="#" class="dropdown-item">
                 <!-- Message Start -->
                 <div class="media">
-                  <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                  <img src="../../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                   <div class="media-body">
                     <h3 class="dropdown-item-title">
                       Brad Diesel
@@ -126,86 +147,77 @@
         <!-- Main content -->
         <div class="content">
           <div class="container-fluid">
-
             <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Listagem de redes sociais</h3>
-                  <a class="btn btn-primary" href="{{ route('admin.form-redesociais') }}" role="button">Cadastro</a>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <h3 class="card-title mb-0">Listagem de redes sociais</h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-primary btn-sm" href="{{ route('admin.form-redesociais') }}" role="button">Adicionar</a>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
-                  <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
-                    <thead>
-                    <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Título</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Descrição</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Valor</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Promoção</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Novidade</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr role="row" class="odd">
-                      <td tabindex="0" class="sorting_1">Gecko</td>
-                      <td>Firefox 1.0</td>
-                      <td>Win 98+ / OSX.2+</td>
-                      <td>1.7</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="even">
-                      <td tabindex="0" class="sorting_1">Gecko</td>
-                      <td>Firefox 1.5</td>
-                      <td>Win 98+ / OSX.2+</td>
-                      <td>1.8</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="odd">
-                      <td tabindex="0" class="sorting_1">Gecko</td>
-                      <td>Firefox 2.0</td>
-                      <td>Win 98+ / OSX.2+</td>
-                      <td>1.8</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="even">
-                      <td tabindex="0" class="sorting_1">Gecko</td>
-                      <td>Firefox 3.0</td>
-                      <td>Win 2k+ / OSX.3+</td>
-                      <td>1.9</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="odd">
-                      <td class="sorting_1" tabindex="0">Gecko</td>
-                      <td>Camino 1.0</td>
-                      <td>OSX.2+</td>
-                      <td>1.8</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="even">
-                      <td class="sorting_1" tabindex="0">Gecko</td>
-                      <td>Camino 1.5</td>
-                      <td>OSX.3+</td>
-                      <td>1.8</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="odd">
-                      <td class="sorting_1" tabindex="0">Gecko</td>
-                      <td>Netscape 7.2</td>
-                      <td>Win 95+ / Mac OS 8.6-9.2</td>
-                      <td>1.7</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="even">
-                      <td class="sorting_1" tabindex="0">Gecko</td>
-                      <td>Netscape Browser 8</td>
-                      <td>Win 98SE+</td>
-                      <td>1.7</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="odd">
-                      <td class="sorting_1" tabindex="0">Gecko</td>
-                      <td>Netscape Navigator 9</td>
-                      <td>Win 98+ / OSX.2+</td>
-                      <td>1.8</td>
-                      <td>A</td>
-                    </tr><tr role="row" class="even">
-                      <td class="sorting_1" tabindex="0">Gecko</td>
-                      <td>Mozilla 1.0</td>
-                      <td>Win 95+ / OSX.1+</td>
-                      <td>1</td>
-                      <td>A</td>
-                    </tr></tbody>
-                    <tfoot>
-                    <tr><th rowspan="1" colspan="1">Rendering engine</th><th rowspan="1" colspan="1">Browser</th><th rowspan="1" colspan="1">Platform(s)</th><th rowspan="1" colspan="1">Engine version</th><th rowspan="1" colspan="1">CSS grade</th></tr>
-                    </tfoot>
-                  </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
-                </div>
-                <!-- /.card-body -->
+                @if(count($items) >= 1)
+                    <div class="card-body">
+                        @if(session()->get('success'))
+                            <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                            </div><br />
+                        @endif
+                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Link</th>
+                                        <th colspan="2">Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($items as $item)
+                                            <tr role="row" class="odd">
+                                                <td tabindex="0" class="sorting_1">{{ $item->nome }}</td>
+                                                <td>{{ $item->link }}</td>
+                                                <td width="15%">
+                                                    <form action="{{ route('redesociais.destroy', $item->id) }}" method="post">
+                                                        <a href="{{ route('admin.form-edit-redesociais',$item->id)}}" class="btn btn-primary btn-sm" data-placement="top">Editar</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
+                                    Mostrando 1 até @if(count($items)< 5){{ count($items) }} @else {{ 5 }} @endif de {{ count($items) }} registros
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                                        {!! $items->links(); !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                @else
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger" role="alert">
+                            Não há itens cadastrados
+                        </div>
+                    </div>
+                @endif
               </div>
 
           </div><!-- /.container-fluid -->
@@ -236,6 +248,36 @@
     </div>
     <!-- ./wrapper -->
 
-    <script src="http://localhost/folgosa/public/js/app.js"></script>
+    <!-- jQuery -->
+<script src="../../../jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="../../../datatables/jquery.dataTables.min.js"></script>
+<script src="../../../datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../../datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../../datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<!--<script src="../../dist/js/demo.js"></script>-->
+<!-- page script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
     </body>
     </html>

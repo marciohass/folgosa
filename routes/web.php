@@ -49,36 +49,28 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     Route::put('produtos/update/{id}', 'ProdutosController@update')->name('produtos.update');
     Route::delete('produtos/destroy/{id}', 'ProdutosController@destroy')->name('produtos.destroy');
 
-    Route::get('admin/lista-assinaturas', function () {
-        return view('admin.lista-assinaturas');
-    })->name('admin.lista-assinaturas');
+    // Rotas das Assinaturas
+    Route::get('admin/lista-assinaturas', 'AssinaturasController@index')->name('admin.lista-assinaturas');
+    Route::get('admin/form-assinaturas', 'AssinaturasController@create')->name('admin.form-assinaturas');
+    Route::post('assinaturas/store', 'AssinaturasController@store')->name('assinaturas.store');
+    Route::get('admin/form-edit-assinaturas/{id}', 'AssinaturasController@edit')->name('admin.form-edit-assinaturas');
+    Route::put('assinaturas/update/{id}', 'AssinaturasController@update')->name('assinaturas.update');
+    Route::delete('assinaturas/destroy/{id}', 'AssinaturasController@destroy')->name('assinaturas.destroy');
 
-    Route::get('admin/form-assinaturas', function () {
-        return view('admin.form-assinaturas');
-    })->name('admin.form-assinaturas');
+    // Rotas dos Banners
+    Route::get('admin/lista-banners', 'BannersController@index')->name('admin.lista-banners');
+    Route::get('admin/form-banners', 'BannersController@create')->name('admin.form-banners');
+    Route::post('banners/store', 'BannersController@store')->name('banners.store');
+    Route::get('admin/form-edit-banners/{id}', 'BannersController@edit')->name('admin.form-edit-banners');
+    Route::put('banners/update/{id}', 'BannersController@update')->name('banners.update');
+    Route::delete('banners/destroy/{id}', 'BannersController@destroy')->name('banners.destroy');
 
-    Route::get('admin/lista-banners', function () {
-        return view('admin.lista-banners');
-    })->name('admin.lista-banners');
+    // Rotas das Redes Sociais
+    Route::get('admin/lista-redesociais', 'RedeSociaisController@index')->name('admin.lista-redesociais');
+    Route::get('admin/form-redesociais', 'RedeSociaisController@create')->name('admin.form-redesociais');
+    Route::post('redesociais/store', 'RedeSociaisController@store')->name('redesociais.store');
+    Route::get('admin/form-edit-redesociais/{id}', 'RedeSociaisController@edit')->name('admin.form-edit-redesociais');
+    Route::put('redesociais/update/{id}', 'RedeSociaisController@update')->name('redesociais.update');
+    Route::delete('redesociais/destroy/{id}', 'RedeSociaisController@destroy')->name('redesociais.destroy');
 
-    Route::get('admin/form-banners', function () {
-        return view('admin.form-banners');
-    })->name('admin.form-banners');
-
-    Route::get('admin/lista-redesociais', function () {
-        return view('admin.lista-redesociais');
-    })->name('admin.lista-redesociais');
-
-    Route::get('admin/form-redesociais', function () {
-        return view('admin.form-redesociais');
-    })->name('admin.form-redesociais');
-
-
-    // Route::get('construtora/criar', 'ConstrutoraController@create')->name('admin.construtora.create');
-    // Route::post('construtora/store', 'ConstrutoraController@store')->name('admin.construtora.store');
-    // Route::get('construtora/fotos/{id}', 'ConstrutoraController@show')->name('admin.construtora.fotos');
-
-
-    // Route::get('construtora/dados/{id}', 'ConstrutoraController@dados')->name('admin.construtora.dados');
-    // Route::post('construtora/dados/{id}', 'ConstrutoraController@storeDados')->name('admin.construtora.storeDados');
 });
