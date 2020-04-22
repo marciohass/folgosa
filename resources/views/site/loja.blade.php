@@ -54,7 +54,7 @@
             <!-- START THE FEATURETTES -->
 
             <hr class="featurette-divider">
-            {{$md = 'order-md-2'}}
+            
             @foreach($produtos as $produto)
                 
                 <div class="row featurette">
@@ -64,7 +64,7 @@
                     <p class="lead">{{$produto->descricao}}</p>
                     <p><a class="btn btn-secondary" href="#" role="button">Quero comprar &raquo;</a></p>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-5  @if($md1 == "") {{$md1 = ' order-md-1'}} @else {{$md1 = ''}} @endif">
                     <img src="image_produtos/{{$produto->foto}}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
                     <!--<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>-->
                     </div>

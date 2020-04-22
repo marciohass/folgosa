@@ -29,6 +29,39 @@ class SiteController extends Controller
 
         $produtos = Produtos::get();
 
-        return view('site.loja', compact(['socials', 'banners', 'produtos']));
+        $md = 'order-md-2';
+
+        $md1 = 'order-md-1';
+
+        return view('site.loja', compact(['socials', 'banners', 'produtos', 'md', 'md1']));
+    }
+
+    public function promocao() {
+
+        $banners = Banners::get();
+
+        $socials = RedeSociais::get();
+
+        $produtos = Produtos::where('promocao', '=', 1)->orWhere('novidade', '=', 1)->get();
+
+        $md = 'order-md-2';
+
+        $md1 = 'order-md-1';
+
+        return view('site.promo', compact(['socials', 'banners', 'produtos', 'md', 'md1']));
+    }
+
+    public function contato() {
+
+        $socials = RedeSociais::get();
+
+        return view('site.contato', compact(['socials']));
+    }
+
+    public function comentarios() {
+
+        $socials = RedeSociais::get();
+
+        return view('site.comentario', compact(['socials']));
     }
 }

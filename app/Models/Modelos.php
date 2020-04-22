@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Modelos extends Model
 {
-    //
+    protected $table = 'modelos';
+    protected $fillable = [
+        'nome',
+        'descricao',
+        'telefone',
+        'email'
+      ];
 }

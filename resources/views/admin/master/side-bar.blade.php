@@ -33,10 +33,10 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.form-profile',1) }}" class="nav-link">
                     <i class="fas fa-user nav-icon"></i>
                     <p>
-                        Meu Cadastro
+                        Meu Perfil
                     </p>
                 </a>
             </li>

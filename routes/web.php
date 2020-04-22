@@ -16,17 +16,12 @@ Route::get('/', 'SiteController@home')->name('site.home');
 
 Route::get('/loja', 'SiteController@loja')->name('site.loja');
 
-Route::get('/promocoes', function () {
-    return view('site.promo');
-})->name('site.promocoes');
+Route::get('/promocoes', 'SiteController@promocao')->name('site.promocoes');
 
-Route::get('/contato', function () {
-    return view('site.contato');
-})->name('site.contato');
+Route::get('/contato', 'SiteController@contato')->name('site.contato');
 
-Route::get('/comentarios', function () {
-    return view('site.comentario');
-})->name('site.comentario');
+Route::get('/comentarios', 'SiteController@comentarios')->name('site.comentario');
+
 
 Route::get('/presentes', function () {
     return view('index');
@@ -37,6 +32,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth', 'web']], function () {
+
+    // Rota do Profile
+    Route::get('admin/form-profile/{id}', 'ProfileController@edit')->name('admin.form-profile');
 
     // Rotas do catálogo de produtos
     Route::get('admin/lista-produtos', 'ProdutosController@index')->name('admin.lista-produtos');
