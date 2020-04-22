@@ -15,28 +15,68 @@
 
           <!-- Grid column -->
           <div class="col-md-6 col-lg-7 text-center text-md-right">
-            <!-- Facebook -->
-            <i class="fas fa-facebook-f white-text mr-4"> </i>
-            <a class="fb-ic">
-              <i class="fas fa-facebook-f white-text mr-4"> </i>
-            </a>
-            <!-- Twitter -->
-            <a class="tw-ic">
-              <i class="far fa-twitter white-text mr-4"> </i>
-            </a>
-            <!-- Google +-->
-            <a class="gplus-ic">
-              <i class="fal fa-google-plus-g white-text mr-4"> </i>
-            </a>
-            <!--Linkedin -->
-            <a class="li-ic">
-              <i class="fab fa-linkedin-in white-text mr-4"> </i>
-            </a>
-            <!--Instagram-->
-            <a class="ins-ic">
-              <i class="fab fa-instagram white-text"> </i>
-            </a>
+            @foreach($socials as $social)
 
+                @switch ($social->nome)
+                    @case ("YouTube")
+                        <!-- YouTube -->
+                        <a href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-youtube mr-4" style="color:white"></i>
+                        </a>
+                        @break
+                    @case ("Facebook")
+                        <!-- Facebook -->
+                        <a href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-facebook-f mr-4" style="color:white"></i>
+                        </a>
+                        @break
+                    @case ("WhatsApp")
+                        <!-- WhatsApp -->
+                        <a href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-whatsapp mr-4" style="color:white"></i>
+                        </a>
+                        @break
+                    @case ("Instagram")
+                        <!--Instagram-->
+                        <a class="ins-ic" href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-instagram mr-4" style="color:white"></i>
+                        </a>
+                        @break
+                    @case ("Twitter")
+                        <!-- Twitter -->
+                        <a class="tw-ic" href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-twitter mr-4" style="color:white"></i>
+                        </a>
+                        @break
+                    @case ("LinkedIn")
+                        <!--Linkedin -->
+                        <a class="li-ic" href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-linkedin-in mr-4" style="color:white"></i>
+                        </a>
+                        @break
+                    @case ("Pinterest")
+                        <!-- Pinterest -->
+                        <a href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-pinterest-p mr-4" style="color:white"></i>
+                        </a>
+                        @break
+                    @case ("Skype")
+                        <!-- Skype -->
+                        <a href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-skype mr-4" style="color:white"></i>
+                        </a>
+                        @break
+                    @case ("Snapchat")
+                        <!-- SnapChat -->
+                        <a href="{{$social->link}}" style="text-decoration: none;">
+                            <i class="fab fa-snapchat-ghost mr-4" style="color:white"></i>
+                        </a>
+                        @break
+
+                @endswitch
+
+
+            @endforeach
           </div>
           <!-- Grid column -->
 
@@ -114,7 +154,7 @@
           <h6 class="text-uppercase font-weight-bold">Contato</h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
           <p>
-            <i class="fas fa-envelope mr-3"></i> folgosa.sg@gmail.com</>
+            <i class="fas fa-envelope mr-3"></i> folgosa.sg@gmail.com</p>
           <p>
             <i class="fas fa-phone mr-3"></i> + (21) 97121-0165</p>
 

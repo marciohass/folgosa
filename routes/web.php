@@ -11,13 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('site.home');
-})->name('site.home');
+// Rota da página Home
+Route::get('/', 'SiteController@home')->name('site.home');
 
-Route::get('/loja', function () {
-    return view('site.loja');
-})->name('site.loja');
+Route::get('/loja', 'SiteController@loja')->name('site.loja');
 
 Route::get('/promocoes', function () {
     return view('site.promo');
