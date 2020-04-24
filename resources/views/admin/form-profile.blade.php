@@ -151,21 +151,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="col-md-12">
                   <!-- jquery validation -->
                     <!-- form start -->
-                    <form action="{{route('assinaturas.store')}}" class="needs-validation" method="post" enctype="multipart/form-data">
+                    <form action="{{route('profile.update', $profile->id)}}" class="needs-validation" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                         <!-- Profile Image -->
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
 
                                 <div class="text-center">
                                     <img class="profile-user-img img-fluid img-circle"
-                                        src="../../dist/img/user4-128x128.jpg"
+                                        src="{{ URL::to('/') }}/image_perfil/{{ $profile->foto }}"
                                         alt="User profile picture">
                                 </div>
-                
-                                <h3 class="profile-username text-center">Nina Mcintire</h3>
-                
-                                <p class="text-muted text-center">Software Engineer</p>
-                
+                                <h3 class="profile-username text-center">{{$profile->nome}}</h3>
+                                <!--<p class="text-muted text-center">Software Engineer</p>-->
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                     <ul>
@@ -175,7 +174,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </ul>
                                     </div><br />
                                 @endif
-
                                 @if(session()->get('success'))
                                     <div class="alert alert-success">
                                     {{ session()->get('success') }}
@@ -185,29 +183,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <div class="form-group col-sm-12">
                                     @csrf
                                     <label for="nome">Nome</label>
-                                    <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
+                                    <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" value="{{$profile->nome}}"quired>
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <label for="descricao">Descrição</label>
-                                    <input type="text" name="descricao" class="form-control" id="descricao" placeholder="Descrição">
+                                    <input type="text" name="descricao" class="form-control" id="descricao" value="{{$profile->descricao}}" placeholder="Descrição">
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4">Selecione uma foto de perfil</label>
+                                    <label class="col-md-4 text-right">Selecione foto de perfil</label>
                                     <div class="col-md-8">
-                                    <input type="file" name="image" />
+                                        <input type="file" name="image" />
+                                        <img src="{{ URL::to('/') }}/image_perfil/{{ $profile->foto }}" class="img-thumbnail" width="100" />
+                                        <input type="hidden" name="hidden_image" value="{{ $profile->foto }}" />
                                     </div>
                                 </div>
                                 <div class="form-row col-sm-12">
                                     <div class="form-group col-md-4">
-                                        <label for="inputTelefone">Telefone</label>
-                                        <input type="text" class="form-control" id="inputTelefone" onkeypress="$(this).mask('(00) 00000-0000');">
+                                        <label for="telefone">Telefone</label>
+                                        <input type="text" class="form-control" name="telefone" id="telefone" onkeypress="$(this).mask('(00) 00000-0000');" value="{{$profile->telefone}}">
                                         <small id="telefoneHelpBlock" class="form-text text-muted">
                                             Digite apenas os números do telefone.
                                         </small>
                                     </div>
                                     <div class="form-group col-md-8">
-                                        <label for="inputEmail4">E-mail*</label>
-                                        <input type="email" class="form-control" id="inputEmail4" required>
+                                        <label for="email">E-mail*</label>
+                                        <input type="email" name="email" class="form-control" id="email" value="{{$profile->email}}" required>
                                         <div class="valid-feedback">
                                             Ok!
                                         </div>
@@ -222,7 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                         <!-- /.card -->
                     </form>
-                  
+
                 </div>
                 <!--/.col (left) -->
                 <!-- right column -->
@@ -281,6 +281,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </script>
     <!-- jquery-validation -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="http://localhost/folgosa/public/js/app.js"></script>
     </body>

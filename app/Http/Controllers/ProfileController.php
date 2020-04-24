@@ -71,7 +71,25 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $modelo = Modelos::find($id);
+
+        $modelo->nome = $request->get('nome');
+        $modelo->descricao = $request->get('descricao');
+        $modelo->telefone = $request->get('telefone');
+        $modelo->email = $request->get('email');
+
+        if($request->file('image')){
+		    $midia = $request->file('image');
+            $midia->move(public_path('/image_perfil'), $request->file('image')->getClientOriginalName());
+            $modelo->foto = $request->file('image')->getClientOriginalName();
+        } else {
+            $modelo->foto = $request->get('hidden_image');
+        }
+
+          $modelo->save();
+
+          return redirect('admin/form-profile/'.$id)->with('success', 'Perfil foi atualizado!');
     }
 
     /**

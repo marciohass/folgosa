@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'web']], function () {
 
     // Rota do Profile
     Route::get('admin/form-profile/{id}', 'ProfileController@edit')->name('admin.form-profile');
+    Route::put('profile/update/{id}', 'ProfileController@update')->name('profile.update');
 
     // Rotas do catálogo de produtos
     Route::get('admin/lista-produtos', 'ProdutosController@index')->name('admin.lista-produtos');
