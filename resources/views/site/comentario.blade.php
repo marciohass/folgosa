@@ -4,11 +4,26 @@
       <main role="main">
           <div class="container mt-5 mb-5">
                 <h3>Comentários</h3>
-                <form action="" class="needs-validation mt-5" novalidate>
+                <form action="{{route('site.comentario_store')}}" method="POST" class="needs-validation mt-5" novalidate>
+                    @csrf
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div><br />
+                    @endif
+                    @if(session()->get('success'))
+                        <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                        </div><br />
+                    @endif
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputNome">Nome*</label>
-                            <input type="text" class="form-control" id="inputNome" required>
+                            <input type="text" name="nome" class="form-control" id="nome" required>
                             <div class="valid-feedback">
                                 Ok!
                             </div>
@@ -18,8 +33,8 @@
                         </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputMensagem">Mensagem*</label>
-                            <textarea class="form-control" id="inputMensagem" rows="2" placeholder="Digite a sua mensagem..." required></textarea>
+                            <label for="comentario">Comentário*</label>
+                            <textarea class="form-control" id="comentario" name="comentario" rows="2" placeholder="Faça seu comentário..." required></textarea>
                             <div class="valid-feedback">
                                 Ok!
                             </div>
@@ -33,13 +48,21 @@
           </div>
 
           <div class="container">
-                <h5 class="mb-5">34 comentários</h5>
-                <div class="row">
-                    <div class="col-lg-6 text-muted">
-                        <p class="font-weight-bold">João <span>3 dias atrás</span> </p>
-                        <p class="text-break font-weight-ligh">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <h5 class="mb-5">{{count($comentarios)}} comentários</h5>
+                @foreach($comentarios as $comentario)
+                    <?php
+                    $data_inicial = date_create($comentario->created_at->format('d-m-Y'));
+                    $data_final = date_create(date('d-m-Y'));
+                    $diferenca = date_diff($data_inicial,$data_final);
+                    $dias = $diferenca->format('%a');
+                    ?>
+                    <div class="row">
+                        <div class="col-lg-6 text-muted">
+                            <p class="font-weight-bold">{{$comentario->nome}} <span class="font-weight-light">({{$dias}} dias atrás)</span> </p>
+                            <p class="text-muted text-sm" style="text-indent:2em">{{$comentario->comentario}}</p><br>
+                        </div>
                     </div>
-                </div>
+                @endforeach
           </div>
       </main>
 

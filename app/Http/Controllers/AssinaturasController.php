@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Assinaturas;
+use App\Models\Modelos;
 
 class AssinaturasController extends Controller
 {
@@ -16,7 +17,9 @@ class AssinaturasController extends Controller
     {
         $items = Assinaturas::paginate(5);
 
-        return view('admin.lista-assinaturas', compact('items')
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.lista-assinaturas', compact(['items', 'modelos'])
                 )->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +30,9 @@ class AssinaturasController extends Controller
      */
     public function create()
     {
-        return view('admin.form-assinaturas');
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.form-assinaturas', compact('modelos'));
     }
 
     /**
@@ -82,7 +87,9 @@ class AssinaturasController extends Controller
     {
         $assinatura = Assinaturas::find($id);
 
-        return view('admin.form-edit-assinaturas', compact('assinatura'));
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.form-edit-assinaturas', compact(['assinatura', 'modelos']));
     }
 
     /**
@@ -96,7 +103,7 @@ class AssinaturasController extends Controller
     {
         $request->validate([
             'nome'=>'required',
-            'valor'=> 'required|integer'
+            'valor'=> 'required'
         ]);
 
         $assinatura = Assinaturas::find($id);

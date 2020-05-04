@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produtos;
+use App\Models\Modelos;
 
 class ProdutosController extends Controller
 {
@@ -17,7 +18,9 @@ class ProdutosController extends Controller
 
         $items = Produtos::paginate(5);
 
-        return view('admin.lista-produtos', compact('items')
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.lista-produtos', compact(['items', 'modelos'])
                 )->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -28,7 +31,9 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        return view('admin.form-produtos');
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.form-produtos', compact('modelos'));
     }
 
     /**
@@ -88,7 +93,9 @@ class ProdutosController extends Controller
     {
         $produto = Produtos::find($id);
 
-        return view('admin.form-edit-produtos', compact('produto'));
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.form-edit-produtos', compact(['produto', 'modelos']));
     }
 
     /**
@@ -102,7 +109,7 @@ class ProdutosController extends Controller
     {
         $request->validate([
             'titulo'=>'required',
-            'valor'=> 'required|integer'
+            'valor'=> 'required'
         ]);
 
         $produto = Produtos::find($id);

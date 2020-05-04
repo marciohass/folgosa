@@ -4,11 +4,26 @@
       <main role="main">
           <div class="container mt-5 mb-5">
             <h3>Contato</h3>
-                <form action="" class="needs-validation mt-5" novalidate>
+                <form action="{{route('site.contato_store')}}" method="POST" class="needs-validation mt-5" novalidate>
+                @csrf
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div><br />
+                @endif
+                @if(session()->get('success'))
+                    <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                    </div><br />
+                @endif
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="inputNome">Nome*</label>
-                        <input type="text" class="form-control" id="inputNome" required>
+                        <label for="nome">Nome*</label>
+                        <input type="text" class="form-control" name="nome" id="nome" required>
                         <div class="valid-feedback">
                             Ok!
                         </div>
@@ -17,8 +32,8 @@
                         </div>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputEmail4">E-mail*</label>
-                        <input type="email" class="form-control" id="inputEmail4" required>
+                        <label for="email">E-mail*</label>
+                        <input type="email" class="form-control" name="email" id="email" required>
                         <div class="valid-feedback">
                             Ok!
                         </div>
@@ -27,16 +42,16 @@
                         </div>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputTelefone">Telefone</label>
-                        <input type="text" class="form-control" id="inputTelefone" onkeypress="$(this).mask('(00) 00000-0000');">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control" name="telefone" id="telefone" onkeypress="$(this).mask('(00)00000-0000');">
                         <small id="telefoneHelpBlock" class="form-text text-muted">
                             Digite apenas os números do telefone.
                         </small>
                     </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputMensagem">Mensagem*</label>
-                        <textarea class="form-control" id="inputMensagem" rows="2" placeholder="Digite a sua mensagem..." required></textarea>
+                        <label for="mensagem">Mensagem*</label>
+                        <textarea class="form-control" id="mensagem" name="mensagem" rows="2" placeholder="Digite a sua mensagem..." required></textarea>
                         <div class="valid-feedback">
                             Ok!
                         </div>

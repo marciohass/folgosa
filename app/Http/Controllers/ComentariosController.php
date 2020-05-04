@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Modelos;
+use App\Models\Comentarios;
 
-class ProfileController extends Controller
+class ComentariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $comentarios = Comentarios::get();
+
+        return view('admin.lista-comentarios', compact('comentarios'));
     }
 
     /**
@@ -57,11 +59,7 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        $profile = Modelos::find($id);
-
-        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
-
-        return view('admin.form-profile', compact(['profile', 'modelos']));
+        //
     }
 
     /**
@@ -73,34 +71,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $modelo = Modelos::find($id);
-
-        $modelo->nome = $request->get('nome');
-        $modelo->descricao = $request->get('descricao');
-        $modelo->telefone = $request->get('telefone');
-        $modelo->email = $request->get('email');
-        $modelo->user_id = auth()->user()->id;
-
-        if($request->file('image')){
-		    $midia = $request->file('image');
-            $midia->move(public_path('/image_perfil'), $request->file('image')->getClientOriginalName());
-            $modelo->foto = $request->file('image')->getClientOriginalName();
-        } else {
-            $modelo->foto = $request->get('hidden_image');
-        }
-
-        if($request->file('logo')){
-		    $midia2 = $request->file('logo');
-            $midia2->move(public_path('/image_logo'), $request->file('logo')->getClientOriginalName());
-            $modelo->logo = $request->file('logo')->getClientOriginalName();
-        } else {
-            $modelo->logo = $request->get('hidden_logo');
-        }
-
-          $modelo->save();
-
-          return redirect('admin/form-profile/'.$id)->with('success', 'Perfil foi atualizado!');
+        //
     }
 
     /**

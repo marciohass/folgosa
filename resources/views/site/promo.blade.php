@@ -40,7 +40,11 @@
 
         <div class="container">
             <blockquote class="blockquote">
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <p class="mb-0">
+                    @foreach($modelo as $md)
+                        {{$md->descricao}}
+                    @endforeach
+                </p>
             </blockquote>
         </div>
 
@@ -56,18 +60,18 @@
           <hr class="featurette-divider">
 
           @foreach($produtos as $produto)
-                
+
                 <div class="row featurette">
                     <div class="col-md-7  @if($md == "") {{$md = ' order-md-2'}} @else {{$md = ''}} @endif">
                     <h2 class="featurette-heading">{{$produto->titulo}} </h2>
-                    
+
                     @if($produto->promocao == 1)
                       De <h5><span class="text-muted"><del>R$ {{$produto->valor}}</del></span></h4>
                       Por <h4><span class="text-muted">R$ {{$produto->valor_promocao}}</span></h5>
                     @else
                       <h4><span class="text-muted">R$ {{$produto->valor}}</span></h4>
                     @endif
-                    
+
                     <p class="lead">{{$produto->descricao}}</p>
                     <p><a class="btn btn-secondary" href="#" role="button">Quero comprar &raquo;</a></p>
                     </div>

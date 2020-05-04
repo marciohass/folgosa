@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comentarios;
+use App\Models\Modelos;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $comentarios = Comentarios::get();
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin/dashboard', compact('comentarios','modelos'));
     }
 }

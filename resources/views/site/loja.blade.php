@@ -40,7 +40,11 @@
 
         <div class="container">
             <blockquote class="blockquote">
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <p class="mb-0">
+                    @foreach($modelo as $md)
+                        {{$md->descricao}}
+                    @endforeach
+                </p>
             </blockquote>
         </div>
 
@@ -48,74 +52,39 @@
         <!-- Marketing messaging and featurettes
         ================================================== -->
         <!-- Wrap the rest of the page in another container to center all the content. -->
+        <form name="payment-method" method="POST" action="{{route('site.paymentmethod')}}">
+            @csrf
+            <div class="container marketing">
 
-        <div class="container marketing">
-
-            <!-- START THE FEATURETTES -->
-
-            <hr class="featurette-divider">
-            
-            @foreach($produtos as $produto)
-                
-                <div class="row featurette">
-                    <div class="col-md-7  @if($md == "") {{$md = ' order-md-2'}} @else {{$md = ''}} @endif">
-                    <h2 class="featurette-heading">{{$produto->titulo}} </h2>
-                    <h4><span class="text-muted">R$ {{$produto->valor}}</span></h4>
-                    <p class="lead">{{$produto->descricao}}</p>
-                    <p><a class="btn btn-secondary" href="#" role="button">Quero comprar &raquo;</a></p>
-                    </div>
-                    <div class="col-md-5  @if($md1 == "") {{$md1 = ' order-md-1'}} @else {{$md1 = ''}} @endif">
-                    <img src="image_produtos/{{$produto->foto}}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                    <!--<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>-->
-                    </div>
-                </div>
+                <!-- START THE FEATURETTES -->
 
                 <hr class="featurette-divider">
 
-            @endforeach
-            <!--
-          <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading">First featurette heading. </h2>
-              <h4><span class="text-muted">R$ 50,00</span></h4>
-              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-              <p><a class="btn btn-secondary" href="#" role="button">Quero comprar &raquo;</a></p>
-            </div>
-            <div class="col-md-5">
-              <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-            </div>
-          </div>
+                @foreach($produtos as $produto)
 
-          <hr class="featurette-divider">
+                    <div class="row featurette">
+                        <div class="col-md-7  @if($md == "") {{$md = ' order-md-2'}} @else {{$md = ''}} @endif">
+                        <input type="hidden" name="id" value="{{$produto->id}}">
+                        <h2 class="featurette-heading">{{$produto->titulo}} </h2>
+                        <input type="hidden" name="titulo" value="{{$produto->titulo}}">
+                        <h4><span class="text-muted">R$ {{$produto->valor}}</span></h4>
+                        <input type="hidden" name="valor" value="{{$produto->valor}}">
+                        <p class="lead">{{$produto->descricao}}</p>
+                        <input type="hidden" name="descricao" value="{{$produto->descricao}}">
+                        <p><button type="submit" class="btn btn-secondary">Quero comprar!</button></p>
+                        </div>
+                        <div class="col-md-5  @if($md1 == "") {{$md1 = ' order-md-1'}} @else {{$md1 = ''}} @endif">
+                        <img src="image_produtos/{{$produto->foto}}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                        <!--<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>-->
+                        </div>
+                    </div>
 
-          <div class="row featurette">
-            <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Oh yeah, it’s that good.
-                <span class="text-muted">See for yourself.</span></h2>
-              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5 order-md-1">
-              <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-            </div>
-          </div>
+                    <hr class="featurette-divider">
 
-          <hr class="featurette-divider">
+                @endforeach
 
-          <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-              <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-            </div>
-          </div>
-
-          <hr class="featurette-divider">
-        -->
-          <!-- /END THE FEATURETTES -->
-
-        </div><!-- /.container -->
+            </div><!-- /.container -->
+        </form>
     </main>
 @extends('site.master.footer')
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

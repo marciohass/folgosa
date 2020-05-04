@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RedeSociais;
+use App\Models\Modelos;
 
 class RedeSociaisController extends Controller
 {
@@ -16,7 +17,9 @@ class RedeSociaisController extends Controller
     {
         $items = RedeSociais::paginate(5);
 
-        return view('admin.lista-redesociais', compact('items')
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.lista-redesociais', compact(['items', 'modelos'])
                 )->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +30,9 @@ class RedeSociaisController extends Controller
      */
     public function create()
     {
-        return view('admin.form-redesociais');
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.form-redesociais', compact('modelos'));
     }
 
     /**
@@ -75,7 +80,9 @@ class RedeSociaisController extends Controller
     {
         $redesocial = RedeSociais::find($id);
 
-        return view('admin.form-edit-redesociais', compact('redesocial'));
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.form-edit-redesociais', compact(['redesocial', 'modelos']));
     }
 
     /**

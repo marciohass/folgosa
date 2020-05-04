@@ -11,6 +11,7 @@ class Modelos extends Model
         'nome',
         'descricao',
         'telefone',
-        'email'
+        'email',
+        'user_id'
       ];
 }

@@ -11,16 +11,25 @@
 |
 */
 
+
+
+
 // Rota da página Home
 Route::get('/', 'SiteController@home')->name('site.home');
-
 Route::get('/loja', 'SiteController@loja')->name('site.loja');
-
 Route::get('/promocoes', 'SiteController@promocao')->name('site.promocoes');
-
 Route::get('/contato', 'SiteController@contato')->name('site.contato');
-
+Route::post('site/storeContato', 'SiteController@storeContato')->name('site.contato_store');
 Route::get('/comentarios', 'SiteController@comentarios')->name('site.comentario');
+Route::post('site/storeComentario', 'SiteController@storeComentario')->name('site.comentario_store');
+
+// Rotas de pagamento
+Route::post('paymentmethod', 'SiteController@paymentmethod')->name('site.paymentmethod');
+Route::post('/invoice', 'SiteController@invoice')->name('site.invoice');
+Route::post('/checkout', 'SiteController@checkout')->name('site.checkout');
+Route::post('/startsession','SiteController@startSession')->name('startsession');
+Route::post('pedido', 'SiteController@pedido')->name('site.pedido');//igual checkout
+
 
 
 Route::get('/presentes', function () {
@@ -32,6 +41,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth', 'web']], function () {
+
+    Route::get('admin/lista-comentarios', 'ComentariosController@index')->name('admin.lista-comentarios');
 
     // Rota do Profile
     Route::get('admin/form-profile/{id}', 'ProfileController@edit')->name('admin.form-profile');

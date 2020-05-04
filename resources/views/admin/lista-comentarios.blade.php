@@ -50,67 +50,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content">
           <div class="container-fluid">
             <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-sm-10">
-                            <h3 class="card-title mb-0">Listagem de banners</h3>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-primary btn-sm" href="{{ route('admin.form-banners') }}" role="button">Adicionar</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.card-header -->
-                @if(count($items) >= 1)
+                @if(count($comentarios) >= 1)
                     <div class="card-body">
-                        @if(session()->get('success'))
-                            <div class="alert alert-success">
-                            {{ session()->get('success') }}
-                            </div><br />
-                        @endif
-                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
-                                    <thead>
-                                    <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Título</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Descrição</th>
-                                        <th colspan="2">Ações</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($items as $item)
-                                            <tr role="row" class="odd">
-                                                <td tabindex="0" class="sorting_1">{{ $item->titulo }}</td>
-                                                <td>{{ $item->descricao }}</td>
-                                                <td width="15%">
-                                                    <form action="{{ route('banners.destroy', $item->id) }}" method="post">
-                                                        <a href="{{ route('admin.form-edit-banners',$item->id)}}" class="btn btn-primary btn-sm" data-placement="top">Editar</a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
-                                    Mostrando 1 até @if(count($items)< 5){{ count($items) }} @else {{ 5 }} @endif de {{ count($items) }} registros
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                                        {!! $items->links(); !!}
-                                    </div>
+                        <h5 class="mb-5">{{count($comentarios)}} comentários</h5>
+                        @foreach($comentarios as $comentario)
+                            <?php
+                            $data_inicial = date_create($comentario->created_at->format('d-m-Y'));
+                            $data_final = date_create(date('d-m-Y'));
+                            $diferenca = date_diff($data_inicial,$data_final);
+                            $dias = $diferenca->format('%a');
+                            ?>
+                            <div class="row">
+                                <div class="col-lg-6 text-muted">
+                                    <p class="font-weight-bold">{{$comentario->nome}} <span class="font-weight-light">({{$dias}} dias atrás)</span> </p>
+                                    <p class="text-muted text-sm" style="text-indent:2em">{{$comentario->comentario}}</p>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                     <!-- /.card-body -->
                 @else

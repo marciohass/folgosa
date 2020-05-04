@@ -1,7 +1,17 @@
 
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a class="navbar-brand mr-5 ml-5" href="#">Folgosa</a>
+          <a class="navbar-brand mr-5 ml-5" href="#">
+              @if(count($modelo))
+                @foreach($modelo as $mod)
+                    @if(!empty($mod->logo))
+                        <img src="{{ URL::to('/') }}/image_logo/{{$mod->logo}}" class="ml-3">
+                    @else
+                        {{$mod->nome}}
+                    @endif
+                @endforeach
+              @endif
+          </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

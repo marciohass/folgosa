@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Banners;
+use App\Models\Modelos;
 
 class BannersController extends Controller
 {
@@ -16,7 +17,9 @@ class BannersController extends Controller
     {
         $items = Banners::paginate(5);
 
-        return view('admin.lista-banners', compact('items')
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.lista-banners', compact(['items', 'modelos'])
                 )->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +30,9 @@ class BannersController extends Controller
      */
     public function create()
     {
-        return view('admin.form-banners');
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.form-banners', compact('modelos'));
     }
 
     /**
@@ -80,7 +85,9 @@ class BannersController extends Controller
     {
         $banner = Banners::find($id);
 
-        return view('admin.form-edit-banners', compact('banner'));
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.form-edit-banners', compact(['banner', 'modelos']));
     }
 
     /**
@@ -92,9 +99,6 @@ class BannersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'banner'=>'required'
-        ]);
 
         $banner = Banners::find($id);
         $banner->titulo = $request->get('titulo');

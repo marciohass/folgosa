@@ -40,7 +40,11 @@
 
     <div class="container">
         <blockquote class="blockquote">
-            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <p class="mb-0">
+                @foreach($modelo as $md)
+                    {{$md->descricao}}
+                @endforeach
+            </p>
         </blockquote>
     </div>
 
