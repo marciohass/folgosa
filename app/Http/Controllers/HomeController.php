@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comentarios;
 use App\Models\Modelos;
+use App\Models\Vendas;
 
 class HomeController extends Controller
 {
@@ -25,9 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $comentarios = Comentarios::get();
+        $count_vendas = Vendas::count();
+        $count_assinantes = Vendas::where('tipo_venda', '=', 'S')->count();
+        $count_presentes = Vendas::where('tipo_venda', '=', 'G')->count();
+        $count_produtos = Vendas::where('tipo_venda', '=', 'P')->count();
+
         $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
 
-        return view('admin/dashboard', compact('comentarios','modelos'));
+        return view('admin/dashboard', compact('count_vendas','count_assinantes','count_presentes','count_produtos','modelos'));
     }
 }

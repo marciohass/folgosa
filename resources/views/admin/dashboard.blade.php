@@ -34,7 +34,7 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3>{{$count_vendas}}</h3>
 
                   <p>Total de vendas</p>
                 </div>
@@ -49,9 +49,9 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  <h3>{{$count_produtos}}</h3>
 
-                  <p>Bounce Rate</p>
+                  <p>Produtos</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
@@ -64,7 +64,7 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3>{{$count_assinantes}}</h3>
 
                   <p>Assinantes</p>
                 </div>
@@ -79,9 +79,9 @@
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>{{count($comentarios)}}</h3>
+                  <h3>{{$count_presentes}}</h3>
 
-                  <p>Comentários</p>
+                  <p>Presentes</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>

@@ -92,6 +92,38 @@
               </li>
             </ul>
           </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.lista-vendas') }}" class="nav-link">
+                    <i class="fas fa-list nav-icon"></i>
+                    <p>
+                        Vendas
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-list nav-icon"></i>
+                    <p>
+                        Produtos vendidos
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-list nav-icon"></i>
+                    <p>
+                        Assinaturas vendidas
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-list nav-icon"></i>
+                    <p>
+                        Presentes
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

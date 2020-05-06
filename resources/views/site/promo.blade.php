@@ -60,29 +60,35 @@
           <hr class="featurette-divider">
 
           @foreach($produtos as $produto)
+            <form name="payment-method" method="POST" action="{{route('site.paymentmethod')}}">
+                @csrf
+                    <div class="row featurette">
+                        <div class="col-md-7  @if($md == "") {{$md = ' order-md-2'}} @else {{$md = ''}} @endif">
+                        <h2 class="featurette-heading">{{$produto->titulo}} </h2>
+                        <input type="hidden" name="id" value="{{$produto->id}}">
+                        <input type="hidden" name="titulo" value="{{$produto->titulo}}">
+                        <input type="hidden" name="tipo_venda" value="P">
 
-                <div class="row featurette">
-                    <div class="col-md-7  @if($md == "") {{$md = ' order-md-2'}} @else {{$md = ''}} @endif">
-                    <h2 class="featurette-heading">{{$produto->titulo}} </h2>
+                        @if($produto->promocao == 1)
+                        De <h5><span class="text-muted"><del>R$ {{$produto->valor}}</del></span></h4>
+                        Por <h4><span class="text-muted">R$ {{$produto->valor_promocao}}</span></h5>
+                            <input type="hidden" name="valor" value="{{$produto->valor_promocao}}">
+                        @else
+                        <h4><span class="text-muted">R$ {{$produto->valor}}</span></h4>
+                        <input type="hidden" name="valor" value="{{$produto->valor}}">
+                        @endif
 
-                    @if($produto->promocao == 1)
-                      De <h5><span class="text-muted"><del>R$ {{$produto->valor}}</del></span></h4>
-                      Por <h4><span class="text-muted">R$ {{$produto->valor_promocao}}</span></h5>
-                    @else
-                      <h4><span class="text-muted">R$ {{$produto->valor}}</span></h4>
-                    @endif
-
-                    <p class="lead">{{$produto->descricao}}</p>
-                    <p><a class="btn btn-secondary" href="#" role="button">Quero comprar &raquo;</a></p>
+                        <p class="lead">{{$produto->descricao}}</p>
+                        <p><button type="submit" class="btn btn-secondary">Quero comprar &raquo;</button></p>
+                        </div>
+                        <div class="col-md-5 @if($md1 == "") {{$md1 = ' order-md-1'}} @else {{$md1 = ''}} @endif">
+                        <img src="image_produtos/{{$produto->foto}}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                        <!--<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>-->
+                        </div>
                     </div>
-                    <div class="col-md-5 @if($md1 == "") {{$md1 = ' order-md-1'}} @else {{$md1 = ''}} @endif">
-                    <img src="image_produtos/{{$produto->foto}}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                    <!--<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>-->
-                    </div>
-                </div>
 
-                <hr class="featurette-divider">
-
+                    <hr class="featurette-divider">
+            </form>
           @endforeach
 
           <!-- /END THE FEATURETTES -->

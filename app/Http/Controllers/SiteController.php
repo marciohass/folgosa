@@ -10,6 +10,7 @@ use App\Models\Produtos;
 use App\Models\Modelos;
 use App\Models\Contatos;
 use App\Models\Comentarios;
+use App\Models\Vendas;
 use PagSeguro;
 
 class SiteController extends Controller
@@ -124,12 +125,45 @@ class SiteController extends Controller
 
     }
 
-    public function invoice(Request $request) {
+    public function gifts() {
+
+        $socials = RedeSociais::get();
+
+        $modelo = Modelos::get();
+
+        return view('site.gifts', compact(['socials', 'modelo']));
+    }
+
+    public function redirectcheckout(Request $request) {
+
+        $item = [
+            'id' => $request->get('id'),
+            'titulo' => $request->get('description'),
+            'valor' => $request->get('amount'),
+            'invoice_number' => $request->get('invoice_number'),
+            'paymentMethod' => $request->get('paymentMethod'),
+            'tipo_venda' => $request->get('tipo_venda')
+        ];
+
+        $modelo = Modelos::get();
+
+        $socials = RedeSociais::get();
+
+        if($item['paymentMethod'] == 'creditCard') {
+            return view('site.checkoutcard', compact(['modelo', 'socials', 'item']));
+
+        } elseif ($item['paymentMethod'] == 'boleto') {
+            return view('site.checkoutboleto', compact(['modelo', 'socials', 'item']));
+        }
+    }
+
+    public function checkoutcard(Request $request) {
 
         $item = [
                     'id' => $request->get('id'),
                     'titulo' => $request->get('description'),
                     'valor' => $request->get('amount'),
+                    'tipo_venda' => $request->get('tipo_venda'),
                     'invoice_number' => $request->get('invoice_number'),
                     'paymentMethod' => $request->get('paymentMethod')
                 ];
@@ -138,9 +172,26 @@ class SiteController extends Controller
 
         $socials = RedeSociais::get();
 
-        return view('site.invoice', compact(['modelo', 'socials', 'item']));
+        return view('site.checkoutcard', compact(['modelo', 'socials', 'item']));
         // return redirect('invoice', compact('modelo', 'socials'))->with('success', 'Mensagem enviada!');
 
+    }
+
+    public function checkoutboleto() {
+        $item = [
+            'id' => $request->get('id'),
+            'titulo' => $request->get('description'),
+            'valor' => $request->get('amount'),
+            'tipo_venda' => $request->get('tipo_venda'),
+            'invoice_number' => $request->get('invoice_number'),
+            'paymentMethod' => $request->get('paymentMethod')
+        ];
+
+        $modelo = Modelos::get();
+
+        $socials = RedeSociais::get();
+
+        return view('site.checkoutboleto', compact(['modelo', 'socials', 'item']));
     }
 
     public function startSession() {
@@ -162,103 +213,16 @@ class SiteController extends Controller
 
     }
 
-    public function checkout(Request $request) {
-
-        $ddd = substr($request->get('telefone'),1,2);
-        $tel = substr($request->get('telefone'),4,10);
-        $tel = str_replace('-', '', $tel);
-
-        $bornDate = explode('/', $request->get('bornDate'));
-        $bornDate = $bornDate[2].'-'.$bornDate[1].'-'.$bornDate[0];
-
-        $cpf = str_replace('.', '', $request->get('cpf'));
-        $cpf = str_replace('-', '', $cpf);
-
-        $data = [
-            'items' => [
-                [
-                    'id' => "'".$request->get('id')."'",
-                    'description' => "'".$request->get('description')."'",
-                    'quantity' => '1',
-                    'amount' => "'".$request->get('amount')."'",
-                    'weight' => '45',
-                    'shippingCost' => '3.5',
-                    'width' => '50',
-                    'height' => '45',
-                    'length' => '60',
-                ],
-                [
-                    'id' => '19',
-                    'description' => 'Item Dois',
-                    'quantity' => '1',
-                    'amount' => '3.15',
-                    'weight' => '50',
-                    'shippingCost' => '8.5',
-                    'width' => '40',
-                    'height' => '50',
-                    'length' => '80',
-                ],
-            ],
-            'shipping' => [
-                'address' => [
-                    'postalCode' => '06410030',
-                    'street' => 'Rua Leonardo Arruda',
-                    'number' => '12',
-                    'district' => 'Jardim dos Camargos',
-                    'city' => 'Barueri',
-                    'state' => 'SP',
-                    'country' => 'BRA',
-                ],
-                'type' => 2,
-                'cost' => 30.4,
-            ],
-            'sender' => [
-                'email' => "'".$request->get('email')."'",
-                'name' => "'".$request->get('nome')."'",
-                'documents' => [
-                    [
-                        'number' => "'".$cpf."'",
-                        'type' => 'CPF'
-                    ]
-                ],
-                'phone' => [
-                    'number' => "'".$tel."'",
-                    'areaCode' => "'".$ddd."'",
-                ],
-                'bornDate' => "'".$bornDate."'",
-            ]
-        ];
-        // print_r($data); die;
-        $checkout = PagSeguro::checkout()->createFromArray($data);
-
-        $credentials = PagSeguro::credentials()->get();
-        print_r($credentials); die;
-        $information = $checkout->send($credentials); // Retorna um objeto de laravel\pagseguro\Checkout\Information\Information
-        if ($information) {
-            print_r($information->getCode());
-            print_r($information->getDate());
-            print_r($information->getLink());
-            $code = $information->getCode();
-
-            $credentials = PagSeguro::credentials()->get();
-            $transaction = PagSeguro::transaction()->get($code, $credentials);
-            $information2 = $transaction->getInformation();
-            if($information2) {
-                print_r($information2);
-            }
-        }
-
-    }
-
     public function paymentmethod(Request $request) {
 
         $item = [
             'id' => $request->get('id'),
             'description' => $request->get('titulo'),
-            'amount' => $request->get('valor')
+            'amount' => $request->get('valor'),
+            'tipo_venda' => $request->get('tipo_venda')
         ];
 
-        $invoice_number = strtoupper($this->generateRandomString(10));
+        $invoice_number = strtoupper($this->generateRandomString(12));
 
         $modelo = Modelos::get();
 
@@ -268,36 +232,33 @@ class SiteController extends Controller
 
     }
 
-    public function pedido(Request $request) {
+    public function boleto(Request $request) {
 
         $paymentMethod = $request->get('paymentMethod');
-
-        $TokenCard=$_POST['TokenCard'];
         $HashCard=$_POST['HashCard'];
-        $QtdParcelas=filter_input(INPUT_POST,'QtdParcelas',FILTER_SANITIZE_SPECIAL_CHARS);
-        $ValorParcelas=filter_input(INPUT_POST,'ValorParcelas',FILTER_SANITIZE_SPECIAL_CHARS);
+        $reference = $request->get('invoice_number');
 
-        $nome=filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS);
-        $email=filter_input(INPUT_POST,'email',FILTER_SANITIZE_SPECIAL_CHARS);
-        $ddd = substr(filter_input(INPUT_POST,'telefone',FILTER_SANITIZE_SPECIAL_CHARS),1,2);
-        $tel = substr(filter_input(INPUT_POST,'telefone',FILTER_SANITIZE_SPECIAL_CHARS),4,10);
+        $nome=$request->get('nome');
+        $email=$request->get('email');
+        $ddd = substr($request->get('telefone'),1,2);
+        $tel = substr($request->get('telefone'),4,10);
         $tel = str_replace('-', '', $tel);
-        $bornDate = filter_input(INPUT_POST,'bornDate',FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $cpf = str_replace('.', '', filter_input(INPUT_POST,'cpf',FILTER_SANITIZE_SPECIAL_CHARS));
+        $cpf = str_replace('.', '', $request->get('cpf'));
         $cpf = str_replace('-', '', $cpf);
 
-        $cep=str_replace('-','',filter_input(INPUT_POST,'cep',FILTER_SANITIZE_SPECIAL_CHARS));
-        $endereco=filter_input(INPUT_POST,'endereco',FILTER_SANITIZE_SPECIAL_CHARS);
-        $numero=filter_input(INPUT_POST,'numero',FILTER_SANITIZE_SPECIAL_CHARS);
-        $complemento=filter_input(INPUT_POST,'complemento',FILTER_SANITIZE_SPECIAL_CHARS);
-        $bairro=filter_input(INPUT_POST,'bairro',FILTER_SANITIZE_SPECIAL_CHARS);
-        $cidade=filter_input(INPUT_POST,'cidade',FILTER_SANITIZE_SPECIAL_CHARS);
-        $uf=filter_input(INPUT_POST,'uf',FILTER_SANITIZE_SPECIAL_CHARS);
+        $cep=str_replace('-','',$request->get('cep'));
+        $endereco=$request->get('endereco');
+        $numero=$request->get('numero');
+        $complemento=$request->get('complemento');
+        $bairro=$request->get('bairro');
+        $cidade=$request->get('cidade');
+        $uf=$request->get('uf');
 
-        $id=filter_input(INPUT_POST,'id',FILTER_SANITIZE_SPECIAL_CHARS);
-        $description=filter_input(INPUT_POST,'description',FILTER_SANITIZE_SPECIAL_CHARS);
-        $amount=filter_input(INPUT_POST,'amount',FILTER_SANITIZE_SPECIAL_CHARS);
+        $id=$request->get('id');
+        $description=$request->get('description');
+        $amount=$request->get('amount');
+        $tipo_venda = $request->get('tipo_venda');
 
         $Data["email"]="marciohhss@gmail.com";
         $Data["token"]="50c6dba5-b21e-4df8-a86b-c90afb1f888fc7a009d54ea4aa3163bfd6bff332e9f3f3bb-d384-45af-8304-0a1f17085a54";
@@ -310,7 +271,127 @@ class SiteController extends Controller
         $Data["itemAmount1"] = $amount;
         $Data["itemQuantity1"] = 1;
         $Data["notificationURL="]="https://www.meusite.com.br/notificacao.php";
-        $Data["reference"]="83783783737";
+        $Data["reference"]=$reference;
+        $Data["senderName"]=$nome;
+        $Data["senderCPF"]=$cpf;
+        $Data["senderAreaCode"]=$ddd;
+        $Data["senderPhone"]=$tel;
+        $Data["senderEmail"]="c51994292615446022931@sandbox.pagseguro.com.br";
+        $Data["senderHash"]=$HashCard;
+        $Data["shippingAddressStreet"]=$endereco;
+        $Data["shippingAddressNumber"]=$numero;
+        $Data["shippingAddressComplement"]=$complemento;
+        $Data["shippingAddressDistrict"]=$bairro;
+        $Data["shippingAddressPostalCode"]=$cep;
+        $Data["shippingAddressCity"]=$cidade;
+        $Data["shippingAddressState"]=$uf;
+        $Data["shippingAddressCountry"]="BRA";
+        $Data["shippingType"]="1";
+        $Data["shippingCost"]="0.00";
+        $Data["billingAddressStreet"]=$endereco;
+        $Data["billingAddressNumber"]=$numero;
+        $Data["billingAddressComplement"]=$complemento;
+        $Data["billingAddressDistrict"]=$bairro;
+        $Data["billingAddressPostalCode"]=$cep;
+        $Data["billingAddressCity"]=$cidade;
+        $Data["billingAddressState"]=$uf;
+        $Data["billingAddressCountry"]="BRA";
+
+        if($tipo_venda == 'S') {
+            $assinatura_id = $id;
+            $produto_id = NULL;
+
+        } elseif($tipo_venda == 'P') {
+            $assinatura_id = NULL;
+            $produto_id = $id;
+
+        } elseif($tipo_venda == 'G') {
+            $assinatura_id = NULL;
+            $produto_id = NULL;
+        }
+
+        // monta array de venda
+        $venda = new Vendas([
+                        'reference' => $reference,
+                        'produto' => $description,
+                        'valor' => $amount,
+                        'nome' => $nome,
+                        'email' => $email,
+                        'telefone' => $request->get('telefone'),
+                        'metodo_pagamento' => $paymentMethod,
+                        'tipo_venda' => $tipo_venda,
+                        'produto_id' => $produto_id,
+                        'assinatura_id' => $assinatura_id
+                    ]);
+        // salva na tabela de vendas
+        $venda->save();
+
+        $BuildQuery=http_build_query($Data);
+        $Url="https://ws.pagseguro.uol.com.br/v2/transactions";
+
+        $Curl=curl_init($Url);
+        curl_setopt($Curl,CURLOPT_HTTPHEADER,Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($Curl,CURLOPT_POST,true);
+        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($Curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($Curl,CURLOPT_POSTFIELDS,$BuildQuery);
+        $Retorno=curl_exec($Curl);
+        curl_close($Curl);
+
+        $Xml=simplexml_load_string($Retorno);
+        echo "
+        <script>
+            window.location.href='$Xml->paymentLink';
+        </script>";
+
+    }
+
+    public function pedido(Request $request) {
+
+        $paymentMethod = $request->get('paymentMethod');
+
+        $TokenCard=$_POST['TokenCard'];
+        $HashCard=$_POST['HashCard'];
+        $QtdParcelas=$request->get('QtdParcelas');
+        $ValorParcelas=$request->get('ValorParcelas');
+
+        $reference = $request->get('invoice_number');
+
+        $nome=$request->get('nome');
+        $email=$request->get('email');
+        $ddd = substr($request->get('telefone'),1,2);
+        $tel = substr($request->get('telefone'),4,10);
+        $tel = str_replace('-', '', $tel);
+        $bornDate = $request->get('bornDate');
+
+        $cpf = str_replace('.', '', $request->get('cpf'));
+        $cpf = str_replace('-', '', $cpf);
+
+        $cep=str_replace('-','',$request->get('cep'));
+        $endereco=$request->get('endereco');
+        $numero=$request->get('numero');
+        $complemento=$request->get('complemento');
+        $bairro=$request->get('bairro');
+        $cidade=$request->get('cidade');
+        $uf=$request->get('uf');
+
+        $id=$request->get('id');
+        $description=$request->get('description');
+        $amount=$request->get('amount');
+        $tipo_venda = $request->get('tipo_venda');
+
+        $Data["email"]="marciohhss@gmail.com";
+        $Data["token"]="50c6dba5-b21e-4df8-a86b-c90afb1f888fc7a009d54ea4aa3163bfd6bff332e9f3f3bb-d384-45af-8304-0a1f17085a54";
+        $Data["paymentMode"]="default";
+        $Data["paymentMethod"]=$paymentMethod;
+        $Data["receiverEmail"]="marciohhss@gmail.com";
+        $Data["currency"]="BRL";
+        $Data["itemId1"] = $id;
+        $Data["itemDescription1"] = $description;
+        $Data["itemAmount1"] = $amount;
+        $Data["itemQuantity1"] = 1;
+        $Data["notificationURL="]="https://www.meusite.com.br/notificacao.php";
+        $Data["reference"]=$reference;
         $Data["senderName"]=$nome;
         $Data["senderCPF"]=$cpf;
         $Data["senderAreaCode"]=$ddd;
@@ -332,7 +413,7 @@ class SiteController extends Controller
         $Data["installmentQuantity"]=$QtdParcelas;
         $Data["installmentValue"]=$ValorParcelas;
         $Data["noInterestInstallmentQuantity"]=2;
-        $Data["creditCardHolderName"]='Jose Comprador';
+        $Data["creditCardHolderName"]=$nome;
         $Data["creditCardHolderCPF"]=$cpf;
         $Data["creditCardHolderBirthDate"]=$bornDate;
         $Data["creditCardHolderAreaCode"]=$ddd;
@@ -345,6 +426,36 @@ class SiteController extends Controller
         $Data["billingAddressCity"]=$cidade;
         $Data["billingAddressState"]=$uf;
         $Data["billingAddressCountry"]="BRA";
+
+        if($tipo_venda == 'S') {
+            $assinatura_id = $id;
+            $produto_id = NULL;
+
+        } elseif($tipo_venda == 'P') {
+            $assinatura_id = NULL;
+            $produto_id = $id;
+
+        } elseif($tipo_venda == 'G') {
+            $assinatura_id = NULL;
+            $produto_id = NULL;
+
+        }
+
+        // monta array de venda
+        $venda = new Vendas([
+                        'reference' => $reference,
+                        'produto' => $description,
+                        'valor' => $amount,
+                        'nome' => $nome,
+                        'email' => $email,
+                        'telefone' => $request->get('telefone'),
+                        'metodo_pagamento' => $paymentMethod,
+                        'tipo_venda' => $tipo_venda,
+                        'produto_id' => $produto_id,
+                        'assinatura_id' => $assinatura_id
+                    ]);
+        // salva na tabela de vendas
+        $venda->save();
 
         $BuildQuery=http_build_query($Data);
         $Url="https://ws.pagseguro.uol.com.br/v2/transactions";

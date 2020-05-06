@@ -52,16 +52,16 @@
         <!-- Marketing messaging and featurettes
         ================================================== -->
         <!-- Wrap the rest of the page in another container to center all the content. -->
-        <form name="payment-method" method="POST" action="{{route('site.paymentmethod')}}">
-            @csrf
-            <div class="container marketing">
 
-                <!-- START THE FEATURETTES -->
+        <div class="container marketing">
 
-                <hr class="featurette-divider">
+            <!-- START THE FEATURETTES -->
 
-                @foreach($produtos as $produto)
+            <hr class="featurette-divider">
 
+            @foreach($produtos as $produto)
+                <form name="payment-method" method="POST" action="{{route('site.paymentmethod')}}">
+                    @csrf
                     <div class="row featurette">
                         <div class="col-md-7  @if($md == "") {{$md = ' order-md-2'}} @else {{$md = ''}} @endif">
                         <input type="hidden" name="id" value="{{$produto->id}}">
@@ -69,6 +69,7 @@
                         <input type="hidden" name="titulo" value="{{$produto->titulo}}">
                         <h4><span class="text-muted">R$ {{$produto->valor}}</span></h4>
                         <input type="hidden" name="valor" value="{{$produto->valor}}">
+                        <input type="hidden" name="tipo_venda" value="P">
                         <p class="lead">{{$produto->descricao}}</p>
                         <input type="hidden" name="descricao" value="{{$produto->descricao}}">
                         <p><button type="submit" class="btn btn-secondary">Quero comprar!</button></p>
@@ -80,11 +81,11 @@
                     </div>
 
                     <hr class="featurette-divider">
+                </form>
+            @endforeach
 
-                @endforeach
+        </div><!-- /.container -->
 
-            </div><!-- /.container -->
-        </form>
     </main>
 @extends('site.master.footer')
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

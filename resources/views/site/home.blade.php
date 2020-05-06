@@ -59,16 +59,25 @@
       <div class="row">
 
         @foreach($assinaturas as $assinatura)
+
             <div class="col-lg-4">
-            @if($assinatura->imagem == "")
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-            @endif
-            <img src="image_assinaturas/{{$assinatura->imagem}}" class="rounded-circle" width="140" height="140" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <h2>{{$assinatura->nome}}</h2>
-            <p>{{$assinatura->descricao}}</p>
-            <h4><span class="text-muted">R$ {{$assinatura->valor}}</span></h4>
-            <p><a class="btn btn-secondary" href="#" role="button">Assine já! &raquo;</a></p>
+                <form name="payment-method" method="POST" action="{{route('site.paymentmethod')}}">
+                    @csrf
+                    @if($assinatura->imagem == "")
+                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                    @endif
+                    <img src="image_assinaturas/{{$assinatura->imagem}}" class="rounded-circle" width="140" height="140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <h2>{{$assinatura->nome}}</h2>
+                    <p>{{$assinatura->descricao}}</p>
+                    <h4><span class="text-muted">R$ {{$assinatura->valor}}</span></h4>
+                    <input type="hidden" name="id" value="{{$assinatura->id}}">
+                    <input type="hidden" name="titulo" value="{{$assinatura->nome}}">
+                    <input type="hidden" name="valor" value="{{$assinatura->valor}}">
+                    <input type="hidden" name="tipo_venda" value="S">
+                    <p><button type="submit" class="btn btn-secondary">Assine já! &raquo;</button></p>
+                </form>
             </div><!-- /.col-lg-4 -->
+
         @endforeach
 
       </div><!-- /.row -->

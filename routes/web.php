@@ -12,8 +12,6 @@
 */
 
 
-
-
 // Rota da página Home
 Route::get('/', 'SiteController@home')->name('site.home');
 Route::get('/loja', 'SiteController@loja')->name('site.loja');
@@ -22,19 +20,18 @@ Route::get('/contato', 'SiteController@contato')->name('site.contato');
 Route::post('site/storeContato', 'SiteController@storeContato')->name('site.contato_store');
 Route::get('/comentarios', 'SiteController@comentarios')->name('site.comentario');
 Route::post('site/storeComentario', 'SiteController@storeComentario')->name('site.comentario_store');
+Route::get('/gifts', 'SiteController@gifts')->name('site.gifts');
 
 // Rotas de pagamento
 Route::post('paymentmethod', 'SiteController@paymentmethod')->name('site.paymentmethod');
-Route::post('/invoice', 'SiteController@invoice')->name('site.invoice');
-Route::post('/checkout', 'SiteController@checkout')->name('site.checkout');
+Route::post('redirectcheckout', 'SiteController@redirectcheckout')->name('site.redirectcheckout');
+Route::post('/checkoutcard', 'SiteController@checkoutcard')->name('site.checkoutcard');
 Route::post('/startsession','SiteController@startSession')->name('startsession');
-Route::post('pedido', 'SiteController@pedido')->name('site.pedido');//igual checkout
+Route::post('/checkoutboleto', 'SiteController@checkoutboleto')->name('site.checkoutboleto');
+Route::post('/pedido', 'SiteController@pedido')->name('site.pedido');
+Route::post('/boleto', 'SiteController@boleto')->name('site.boleto');
 
 
-
-Route::get('/presentes', function () {
-    return view('index');
-})->name('site.presentes');
 
 Auth::routes();
 
@@ -80,4 +77,7 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     Route::put('redesociais/update/{id}', 'RedeSociaisController@update')->name('redesociais.update');
     Route::delete('redesociais/destroy/{id}', 'RedeSociaisController@destroy')->name('redesociais.destroy');
 
+    // Rotas de Vendas
+    Route::get('admin/lista-vendas', 'VendasController@index')->name('admin.lista-vendas');
+    Route::get('admin/form-show-venda/{id}', 'VendasController@show')->name('admin.form-show-venda');
 });

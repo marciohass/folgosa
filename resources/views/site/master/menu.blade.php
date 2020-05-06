@@ -27,7 +27,7 @@
               <a class="nav-link" href="{{ route('site.promocoes') }}">Novidades & Promoções</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Presentes</a>
+                <a class="nav-link" href="{{ route('site.gifts') }}">Presentes</a>
               </li>
               <li class="nav-item">
               <a class="nav-link" href="{{ route('site.contato') }}">Contato</a>

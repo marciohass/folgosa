@@ -14,11 +14,12 @@
         </div>
 
         <!-- Inicio do formulário -->
-        <form action="{{route('site.invoice')}}" method="POST" class="needs-validation mt-5" novalidate>
+        <form action="{{route('site.redirectcheckout')}}" method="POST" class="needs-validation mt-5" novalidate>
             @csrf
             <input type="hidden" name="id" value="{{$item['id']}}">
             <input type="hidden" name="description" value="{{$item['description']}}">
             <input type="hidden" name="amount" id="amount" value="{{$item['amount']}}">
+            <input type="hidden" name="tipo_venda" id="tipo_venda" value="{{$item['tipo_venda']}}">
             <input type="hidden" name="invoice_number" id="invoice_number" value="{{$invoice_number}}">
 
             <!-- Início DIV bg branco -->
