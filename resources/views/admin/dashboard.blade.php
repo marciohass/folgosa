@@ -41,7 +41,7 @@
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.lista-vendas') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -56,7 +56,7 @@
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.lista-venda-produtos') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -71,7 +71,7 @@
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.lista-venda-assinaturas') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -86,7 +86,7 @@
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="{{ route('admin.lista-comentarios') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.lista-venda-presentes') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -102,10 +102,10 @@
                   <div class="card-tools">
                     <ul class="nav nav-pills ml-auto">
                       <li class="nav-item">
-                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Mensal</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Diário</a>
                       </li>
                     </ul>
                   </div>
@@ -116,8 +116,8 @@
                     <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                         <canvas id="bar-chart" width="800" height="250"></canvas>
                     </div>
-                    <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                        <canvas id="doughnut-chart" width="800" height="250"></canvas>
+                    <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="bar-chart2" width="800" height="250"></canvas>
                     </div>
                   </div>
                 </div><!-- /.card-body -->
@@ -162,15 +162,15 @@
 <script src="../../../dist/js/adminlte.min.js"></script>
 <script>
     // Bar chart
-    new Chart(document.getElementById("bar-chart"), {
+    var firstBarChart = new Chart(document.getElementById("bar-chart"), {
         type: 'bar',
         data: {
         labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
         datasets: [
             {
             label: "Vendas no mês",
-            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2"],
-            data: [2478,5267,734,784,433,2478,5267,734,784,433,550,650]
+            backgroundColor: ["#6610f2", "#6610f2","#6610f2","#6610f2","#6610f2","#6610f2", "#6610f2","#6610f2","#6610f2","#6610f2","#6610f2", "#6610f2"],
+            data: [{{ $total_meses }}]
             }
         ]
         },
@@ -183,22 +183,24 @@
         }
     });
 
-    new Chart(document.getElementById("doughnut-chart"), {
-        type: 'doughnut',
+
+    var myBarChart = new Chart(document.getElementById("bar-chart2"), {
+        type: 'bar',
         data: {
-        labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        labels: [{{$dias_grafico}}],
         datasets: [
             {
-            label: "Vendas no mês",
-            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2"],
-            data: [2478,5267,734,784,433,2478,5267,734,784,433,550,650]
+            label: "Vendas no mês de {{$mes_extenso}}",
+            backgroundColor: ['#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2','#6610f2'],
+            data: [{{ $total_dias }}]
             }
         ]
         },
         options: {
+        legend: { display: false },
         title: {
             display: true,
-            text: 'Vendas no ano de 2020'
+            text: 'Vendas no mês {{$mes_extenso}}'
         }
         }
     });

@@ -101,7 +101,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.lista-venda-produtos') }}" class="nav-link">
                     <i class="fas fa-list nav-icon"></i>
                     <p>
                         Produtos vendidos
@@ -109,7 +109,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.lista-venda-assinaturas') }}" class="nav-link">
                     <i class="fas fa-list nav-icon"></i>
                     <p>
                         Assinaturas vendidas
@@ -117,7 +117,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.lista-venda-presentes') }}" class="nav-link">
                     <i class="fas fa-list nav-icon"></i>
                     <p>
                         Presentes

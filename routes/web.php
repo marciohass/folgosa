@@ -31,11 +31,13 @@ Route::post('/checkoutboleto', 'SiteController@checkoutboleto')->name('site.chec
 Route::post('/pedido', 'SiteController@pedido')->name('site.pedido');
 Route::post('/boleto', 'SiteController@boleto')->name('site.boleto');
 
+Route::get('/finalizado', 'SiteController@finalizado')->name('site.finalizado');
 
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth', 'web']], function () {
 
@@ -80,4 +82,8 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     // Rotas de Vendas
     Route::get('admin/lista-vendas', 'VendasController@index')->name('admin.lista-vendas');
     Route::get('admin/form-show-venda/{id}', 'VendasController@show')->name('admin.form-show-venda');
+    Route::get('admin/lista-venda-produtos', 'VendasController@showProducts')->name('admin.lista-venda-produtos');
+    Route::get('admin/lista-venda-assinaturas', 'VendasController@showSubscritions')->name('admin.lista-venda-assinaturas');
+    Route::get('admin/lista-venda-presentes', 'VendasController@showGifts')->name('admin.lista-venda-presentes');
+
 });

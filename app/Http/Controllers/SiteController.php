@@ -11,6 +11,7 @@ use App\Models\Modelos;
 use App\Models\Contatos;
 use App\Models\Comentarios;
 use App\Models\Vendas;
+use App\Models\Clientes;
 use PagSeguro;
 
 class SiteController extends Controller
@@ -243,6 +244,8 @@ class SiteController extends Controller
         $ddd = substr($request->get('telefone'),1,2);
         $tel = substr($request->get('telefone'),4,10);
         $tel = str_replace('-', '', $tel);
+        $data_nascimento = explode('/', $request->get('bornDate'));
+        $data_nascimento = $data_nascimento[2].'-'.$data_nascimento[1].'-'.$data_nascimento[0];
 
         $cpf = str_replace('.', '', $request->get('cpf'));
         $cpf = str_replace('-', '', $cpf);
@@ -297,6 +300,24 @@ class SiteController extends Controller
         $Data["billingAddressState"]=$uf;
         $Data["billingAddressCountry"]="BRA";
 
+        // monta array cliente
+        $cliente = new Clientes([
+            'nome' => $nome,
+            'email' => $email,
+            'telefone' => $request->get('telefone'),
+            'data_nascimento' => $data_nascimento,
+            'cep' => $cep,
+            'endereco' => $endereco,
+            'numero' => $numero,
+            'complemento' => $complemento,
+            'bairro' => $bairro,
+            'cidade' => $cidade,
+            'uf' => $uf
+        ]);
+
+        $cliente->save();
+        $cliente_id = $cliente->id;
+
         if($tipo_venda == 'S') {
             $assinatura_id = $id;
             $produto_id = NULL;
@@ -315,13 +336,11 @@ class SiteController extends Controller
                         'reference' => $reference,
                         'produto' => $description,
                         'valor' => $amount,
-                        'nome' => $nome,
-                        'email' => $email,
-                        'telefone' => $request->get('telefone'),
                         'metodo_pagamento' => $paymentMethod,
                         'tipo_venda' => $tipo_venda,
                         'produto_id' => $produto_id,
-                        'assinatura_id' => $assinatura_id
+                        'assinatura_id' => $assinatura_id,
+                        'cliente_id' => $cliente_id
                     ]);
         // salva na tabela de vendas
         $venda->save();
@@ -339,10 +358,24 @@ class SiteController extends Controller
         curl_close($Curl);
 
         $Xml=simplexml_load_string($Retorno);
+        /*
         echo "
         <script>
             window.location.href='$Xml->paymentLink';
         </script>";
+        */
+
+        $modelo = Modelos::get();
+
+        $socials = RedeSociais::get();
+
+        $link = $Xml->paymentLink;
+        $codigo = $Xml->code;
+
+
+        if(!empty($link)) {
+            return view('site.finalizado', compact(['modelo', 'socials', 'link', 'codigo']));
+        }
 
     }
 
@@ -363,6 +396,8 @@ class SiteController extends Controller
         $tel = substr($request->get('telefone'),4,10);
         $tel = str_replace('-', '', $tel);
         $bornDate = $request->get('bornDate');
+        $data_nascimento = explode('/', $request->get('bornDate'));
+        $data_nascimento = $data_nascimento[2].'-'.$data_nascimento[1].'-'.$data_nascimento[0];
 
         $cpf = str_replace('.', '', $request->get('cpf'));
         $cpf = str_replace('-', '', $cpf);
@@ -427,6 +462,24 @@ class SiteController extends Controller
         $Data["billingAddressState"]=$uf;
         $Data["billingAddressCountry"]="BRA";
 
+        // monta array cliente
+        $cliente = new Clientes([
+            'nome' => $nome,
+            'email' => $email,
+            'telefone' => $request->get('telefone'),
+            'data_nascimento' => $data_nascimento,
+            'cep' => $cep,
+            'endereco' => $endereco,
+            'numero' => $numero,
+            'complemento' => $complemento,
+            'bairro' => $bairro,
+            'cidade' => $cidade,
+            'uf' => $uf
+        ]);
+
+        $cliente->save();
+        $cliente_id = $cliente->id;
+
         if($tipo_venda == 'S') {
             $assinatura_id = $id;
             $produto_id = NULL;
@@ -443,17 +496,15 @@ class SiteController extends Controller
 
         // monta array de venda
         $venda = new Vendas([
-                        'reference' => $reference,
-                        'produto' => $description,
-                        'valor' => $amount,
-                        'nome' => $nome,
-                        'email' => $email,
-                        'telefone' => $request->get('telefone'),
-                        'metodo_pagamento' => $paymentMethod,
-                        'tipo_venda' => $tipo_venda,
-                        'produto_id' => $produto_id,
-                        'assinatura_id' => $assinatura_id
-                    ]);
+                    'reference' => $reference,
+                    'produto' => $description,
+                    'valor' => $amount,
+                    'metodo_pagamento' => $paymentMethod,
+                    'tipo_venda' => $tipo_venda,
+                    'produto_id' => $produto_id,
+                    'assinatura_id' => $assinatura_id,
+                    'cliente_id' => $cliente_id
+                ]);
         // salva na tabela de vendas
         $venda->save();
 
@@ -470,11 +521,25 @@ class SiteController extends Controller
         curl_close($Curl);
 
         $Xml=simplexml_load_string($Retorno);
-        return var_dump($Xml);
+        // return var_dump($Xml);
+
+        $modelo = Modelos::get();
+
+        $socials = RedeSociais::get();
+
+        $codigo = $Xml->code;
+
+        if(!empty($codigo)) {
+            return view('site.finalizado', compact(['modelo', 'socials', 'codigo']));
+        }
     }
 
     public function generateRandomString($length = 6) {
         return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+    }
+
+    public function finalizado() {
+        return view('site.finalizado');
     }
 
 }

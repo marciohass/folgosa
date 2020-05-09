@@ -240,11 +240,7 @@
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
                 <div class="col-12">
-                    <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Imprimir</a>
                     <button type="submit" class="btn btn-success float-right" name="BotaoComprar" id="BotaoComprar" value="Comprar"><i class="far fa-credit-card"></i> Pagar
-                    </button>
-                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                    <i class="fas fa-download"></i> Gerar PDF
                     </button>
                 </div>
                 </div>

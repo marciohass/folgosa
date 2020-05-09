@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Produtos;
 use App\Models\Modelos;
 use App\Models\Vendas;
+use App\Models\Clientes;
 
 class VendasController extends Controller
 {
@@ -17,7 +18,9 @@ class VendasController extends Controller
      */
     public function index()
     {
-        $items = Vendas::paginate(5);
+        // $items = Vendas::select('name','surname')->where('')->paginate(5);
+        $items = Vendas::join('clientes', 'clientes.id', '=', 'vendas.cliente_id')
+                            ->select('vendas.*', 'clientes.nome')->paginate(5);
 
         $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
 
@@ -54,11 +57,49 @@ class VendasController extends Controller
      */
     public function show($id)
     {
-        $venda = Vendas::find($id);
+        $venda = Vendas::find($id)
+                    ->join('clientes', 'clientes.id', '=', 'vendas.cliente_id')
+                    ->select('vendas.*', 'clientes.*')->get();
 
         $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
 
         return view('admin.form-show-venda', compact(['venda', 'modelos']));
+    }
+
+    public function showProducts()
+    {
+        $items = Vendas::join('clientes', 'clientes.id', '=', 'vendas.cliente_id')
+                            ->where('tipo_venda', '=', 'P')
+                            ->select('vendas.*', 'clientes.nome')->paginate(5);
+
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.lista-venda-produtos', compact(['items', 'modelos'])
+                )->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function showSubscritions()
+    {
+        $items = Vendas::join('clientes', 'clientes.id', '=', 'vendas.cliente_id')
+                            ->where('tipo_venda', '=', 'S')
+                            ->select('vendas.*', 'clientes.nome')->paginate(5);
+
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.lista-venda-assinaturas', compact(['items', 'modelos'])
+                )->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function showGifts()
+    {
+        $items = Vendas::join('clientes', 'clientes.id', '=', 'vendas.cliente_id')
+                            ->where('tipo_venda', '=', 'G')
+                            ->select('vendas.*', 'clientes.nome')->paginate(5);
+
+        $modelos = Modelos::where('user_id', '=', auth()->user()->id)->get();
+
+        return view('admin.lista-venda-presentes', compact(['items', 'modelos'])
+                )->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**

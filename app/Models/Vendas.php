@@ -17,6 +17,9 @@ class Vendas extends Model
         'metodo_pagamento',
         'tipo_venda',
         'produto_id',
-        'assinatura_id'
+        'assinatura_id',
+        'cliente_id',
+        'created_at'
       ];
+
 }
