@@ -97,8 +97,11 @@
                 </div>
 
                 <!-- this row will not appear when printing -->
-                <div class="row no-print mt-3">
-                    <div class="col-12">
+                <div class="row no-print mt-5">
+                    <div class="col-6">
+                        <img src="/images/Logo_PagSeguro.png" width="150px" alt="">
+                    </div>
+                    <div class="col-6">
                         <button type="submit" class="btn btn-success float-right" name="FinalizarCompra" id="FinalizarCompra" value="FinalizarCompra">
                             <i class="far fa-credit-card"></i> Finalizar Compra
                         </button>

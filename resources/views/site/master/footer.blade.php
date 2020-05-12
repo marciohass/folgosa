@@ -129,19 +129,10 @@
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
           <!-- Links -->
-          <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+          <h6 class="text-uppercase font-weight-bold">Links</h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
           <p>
-            <a href="#!">Your Account</a>
-          </p>
-          <p>
-            <a href="#!">Become an Affiliate</a>
-          </p>
-          <p>
-            <a href="#!">Shipping Rates</a>
-          </p>
-          <p>
-            <a href="#!">Help</a>
+            <a href="https://allmylinks.com/">AllMyLinks</a>
           </p>
 
         </div>

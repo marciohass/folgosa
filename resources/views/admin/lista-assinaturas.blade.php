@@ -84,12 +84,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <tr role="row" class="odd">
                                                 <td tabindex="0" class="sorting_1">{{ $item->nome }}</td>
                                                 <td>R$ {{ $item->valor }}</td>
-                                                <td width="15%">
+                                                <td width="10%">
                                                     <form action="{{ route('assinaturas.destroy', $item->id) }}" method="post">
-                                                        <a href="{{ route('admin.form-edit-assinaturas',$item->id)}}" class="btn btn-primary btn-sm" data-placement="top">Editar</a>
+                                                        <a href="{{ route('admin.form-edit-assinaturas',$item->id)}}" class="btn btn-primary btn-sm" data-placement="top"><i class="fas fa-edit"></i></a>
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

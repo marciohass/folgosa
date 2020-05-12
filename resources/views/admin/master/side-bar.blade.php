@@ -34,6 +34,7 @@
         <div class="info">
           <a href="#" class="d-block">@if(!empty($nome_modelo)) {{$nome_modelo}} @endif</a>
         </div>
+        <div class="image"><a href="/logout"><i class="fas fa-power-off fa-2x" style="color: #01ff70"></i></a></div>
       </div>
 
       <!-- Sidebar Menu -->
@@ -57,7 +58,7 @@
                     </p>
                 </a>
             </li>
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon nav-icon fas fa-edit"></i>
               <p>

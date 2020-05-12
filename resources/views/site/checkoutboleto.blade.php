@@ -239,10 +239,13 @@
 
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-success float-right" name="BotaoComprar" id="BotaoComprar" value="Comprar"><i class="far fa-credit-card"></i> Pagar
-                    </button>
-                </div>
+                    <div class="col-6">
+                        <img src="/images/Logo_PagSeguro.png" width="150px" alt="">
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success float-right" name="BotaoComprar" id="BotaoComprar" value="Comprar"><i class="far fa-credit-card"></i> Pagar
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>

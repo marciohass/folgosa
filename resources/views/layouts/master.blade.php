@@ -160,6 +160,7 @@
 <script src="../../../bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../../dist/js/adminlte.min.js"></script>
+<script src="../../../dist/js/pages/dashboard.js"></script>
 <script>
     // Bar chart
     new Chart(document.getElementById("bar-chart"), {
