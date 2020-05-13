@@ -32,6 +32,7 @@ Route::post('/startsession','SiteController@startSession')->name('startsession')
 Route::post('/checkoutboleto', 'SiteController@checkoutboleto')->name('site.checkoutboleto');
 Route::post('/pedido', 'SiteController@pedido')->name('site.pedido');
 Route::post('/boleto', 'SiteController@boleto')->name('site.boleto');
+Route::get('/notificacao', 'SiteController@notificacao')->name('notificacao');
 
 Route::get('/finalizado', 'SiteController@finalizado')->name('site.finalizado');
 

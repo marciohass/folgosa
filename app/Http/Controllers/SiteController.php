@@ -551,4 +551,26 @@ class SiteController extends Controller
         return view('site.finalizado');
     }
 
+    public function notificacao() {
+
+        $Url="https://ws.pagseguro.uol.com.br/v3/transactions/notifications/{$_POST['notificationCode']}?email=maciohhss@gmail.com&token=50c6dba5-b21e-4df8-a86b-c90afb1f888fc7a009d54ea4aa3163bfd6bff332e9f3f3bb-d384-45af-8304-0a1f17085a54";
+
+        $Curl=curl_init($Url);
+        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER,true);
+        curl_setopt($Curl,CURLOPT_RETURNTRANSFER,true);
+        $Retorno=curl_exec($Curl);
+        curl_close($Curl);
+
+        $Xml=simplexml_load_string($Retorno);
+
+        $status = $Xml->status;
+        $reference = $Xml->reference;
+
+        $venda = Vendas::where('reference', '=', $reference)->firstOrFail();
+
+        $venda->status = $status;
+
+        $venda->save();
+    }
+
 }
