@@ -54,9 +54,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- left column -->
                 <div class="col-md-12">
                   <!-- jquery validation -->
-                  <div class="card card-primary">
+                  <div class="card card-outline card-primary">
                     <div class="card-header">
-                      <h3 class="card-title">Edição de Banners </h3>
+                      <h3 class="card-title mb-0">Edição de Banners </h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -89,18 +89,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <label for="descricao">Descrição</label>
                         <textarea name="descricao" class="form-control" id="descricao" placeholder="Descrição">{{ $banner->descricao }}</textarea>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right">Select Profile Image</label>
-                            <div class="col-md-8">
-                                <input type="file" name="image" />
-                                <img src="{{ URL::to('/') }}/image_banners/{{ $banner->banner }}" class="img-thumbnail" width="100" />
-                                <input type="hidden" name="hidden_image" value="{{ $banner->banner }}" />
+                        <div class="form-group col-sm-12">
+                            <div class="card card-outline card-primary">
+                                <div class="card-header">
+                                  <h5 class="card-title mb-0">Selecione uma imagem</h5>
+                                </div>
+                                <div class="card-body">
+                                    <input type="file" name="image" />
+                                    <img src="{{ URL::to('/') }}/image_banners/{{ $banner->banner }}" class="img-thumbnail" width="100" />
+                                    <input type="hidden" name="hidden_image" value="{{ $banner->banner }}" />
+                                </div>
+                                <!-- /.card-body -->
                             </div>
                         </div>
                       </div>
                       <!-- /.card-body -->
                       <div class="card-footer">
-                        <button type="submit" class="btn btn-primary" data-placement="top">Editar</button>
+                        <button type="submit" class="btn btn-success float-right" data-placement="top">Editar</button>
                       </div>
                     </form>
                   </div>

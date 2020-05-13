@@ -52,9 +52,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- left column -->
                 <div class="col-md-12">
                   <!-- jquery validation -->
-                  <div class="card card-primary">
+                  <div class="card card-outline card-primary">
                     <div class="card-header">
-                      <h3 class="card-title">Cadastro de Banners </h3>
+                      <h3 class="card-title mb-0">Cadastro de Banners </h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -85,16 +85,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <label for="descricao">Descrição</label>
                           <textarea name="descricao" class="form-control" id="descricao" rows="3" placeholder="Descrição"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right">Select Profile Image</label>
-                            <div class="col-md-8">
-                             <input type="file" name="image" />
+                        <div class="form-group col-sm-12">
+                            <div class="card card-outline card-primary">
+                                <div class="card-header">
+                                  <h5 class="card-title mb-0">Selecione uma imagem</h5>
+                                </div>
+                                <div class="card-body">
+                                    <input type="file" name="image" />
+                                </div>
+                                <!-- /.card-body -->
                             </div>
                         </div>
                       </div>
                       <!-- /.card-body -->
                       <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                        <button type="submit" class="btn btn-success float-right">Adicionar</button>
                       </div>
                     </form>
                   </div>

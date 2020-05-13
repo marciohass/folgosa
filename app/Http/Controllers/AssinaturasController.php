@@ -138,4 +138,5 @@ class AssinaturasController extends Controller
 
         return redirect('admin/lista-assinaturas')->with('success', 'Assinatura excluída com sucesso!');
     }
+
 }

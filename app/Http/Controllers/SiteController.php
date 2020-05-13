@@ -13,6 +13,8 @@ use App\Models\Comentarios;
 use App\Models\Vendas;
 use App\Models\Clientes;
 use PagSeguro;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailUser;
 
 class SiteController extends Controller
 {
@@ -371,10 +373,11 @@ class SiteController extends Controller
 
         $link = $Xml->paymentLink;
         $codigo = $Xml->code;
-
+        $codigo_pedido = $reference;
 
         if(!empty($link)) {
-            return view('site.finalizado', compact(['modelo', 'socials', 'link', 'codigo']));
+            Mail::to($email)->send(new SendMailUser($Data, $codigo));
+            return view('site.finalizado', compact(['modelo', 'socials', 'link', 'codigo', 'codigo_pedido']));
         }
 
     }
@@ -431,7 +434,7 @@ class SiteController extends Controller
         $Data["senderCPF"]=$cpf;
         $Data["senderAreaCode"]=$ddd;
         $Data["senderPhone"]=$tel;
-        $Data["senderEmail"]="c51994292615446022931@sandbox.pagseguro.com.br";
+        $Data["senderEmail"]=$email;
         $Data["senderHash"]=$HashCard;
         $Data["shippingType"]="1";
         $Data["shippingAddressStreet"]=$endereco;
@@ -528,9 +531,12 @@ class SiteController extends Controller
         $socials = RedeSociais::get();
 
         $codigo = $Xml->code;
+        $codigo_pedido = $reference;
 
         if(!empty($codigo)) {
-            return view('site.finalizado', compact(['modelo', 'socials', 'codigo']));
+
+            Mail::to($email)->send(new SendMailUser($Data, $codigo));
+            return view('site.finalizado', compact(['modelo', 'socials', 'codigo', 'codigo_pedido']));
         }
     }
 

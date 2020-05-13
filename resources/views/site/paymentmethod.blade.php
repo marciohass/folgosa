@@ -41,16 +41,16 @@
                         <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Qtd</th>
-                            <th>Produto</th>
-                            <th>Subtotal</th>
+                            <th width="10%" style="text-align: center">Qtd</th>
+                            <th width="75%">Produto</th>
+                            <th width="15%">Subtotal</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td width="5%">1</td>
-                            <td>{{$item['description']}}</td>
-                            <td>R${{$item['amount']}}</td>
+                            <td width="10%" style="text-align: center">1</td>
+                            <td width="75%">{{$item['description']}}</td>
+                            <td width="15%">R${{$item['amount']}}</td>
                         </tr>
                         </tbody>
                         </table>
@@ -176,7 +176,7 @@
             amount: Amount,
             success: function(data) {
                 $.each(data.paymentMethods.CREDIT_CARD.options, function(i, obj){
-                    $('.CartaoCredito').append("<img src=https://stc.pagseguro.uol.com.br/"+obj.images.MEDIUM.path+" alt="+obj.name+">");
+                    $('.CartaoCredito').append("<img style='margin-left: -5px;' src=https://stc.pagseguro.uol.com.br/"+obj.images.MEDIUM.path+" alt="+obj.name+">");
                 });
 
                 $('.Boleto').append("<img src=https://stc.pagseguro.uol.com.br/"+data.paymentMethods.BOLETO.options.BOLETO.images.MEDIUM.path+">");

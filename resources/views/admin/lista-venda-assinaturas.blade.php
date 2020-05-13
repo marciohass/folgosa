@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <td>@if($item->tipo_venda == 'S'){{ 'Assinatura' }} @elseif($item->tipo_venda == 'G'){{ 'Presente' }}@else{{ 'Produto' }}@endif</td>
                                                 <td width="10%">
                                                     <form action="{{ route('produtos.destroy', $item->id) }}" method="post">
-                                                        <a href="{{ route('admin.form-show-venda',$item->id)}}" class="btn btn-primary btn-sm" data-placement="top"><i class="fas fa-edit"></i></a>
+                                                        <a href="{{ route('admin.form-show-venda',$item->id)}}" class="btn btn-primary btn-sm" data-placement="top"><i class="fas fa-info-circle"></i></a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>

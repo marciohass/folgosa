@@ -132,9 +132,14 @@
           <h6 class="text-uppercase font-weight-bold">Links</h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
           <p>
-            <a href="https://allmylinks.com/">AllMyLinks</a>
+            <a href="https://allmylinks.com/" target="_BLANK">AllMyLinks</a>
           </p>
-
+          <p>
+            <a href="https://onlyfans.com/" target="_BLANK">OnlyFans</a>
+          </p>
+          <p>
+            <a href="https://suicidegirls.com/" target="_BLANK">Suicide Girls</a>
+          </p>
         </div>
         <!-- Grid column -->
 

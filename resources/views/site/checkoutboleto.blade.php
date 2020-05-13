@@ -11,7 +11,7 @@
         margin-bottom: 1rem;
         padding: 1rem;">
             <h5><i class="fas fa-info"></i> Nota:</h5>
-            Esta página foi aprimorada para impressão. Clique no botão imprimir na parte inferior da fatura.
+            Seu pagamento é totalmente seguro realizado pelo PagSeguro. Assim que sua fatura for aprovada pelo PagSeguro, você receberá seu produto.
         </div>
 
         <form action="{{route('site.boleto')}}" method="POST" class="needs-validation mt-5" novalidate>

@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('envio-email', function(){
+    return new \App\Mail\SendMailUser();
+});
 
 // Rota da página Home
 Route::get('/', 'SiteController@home')->name('site.home');
@@ -46,6 +48,7 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     // Rota do Profile
     Route::get('admin/form-profile/{id}', 'ProfileController@edit')->name('admin.form-profile');
     Route::put('profile/update/{id}', 'ProfileController@update')->name('profile.update');
+    Route::post('uploadlogo/{id}', 'ProfileController@upload_logo')->name('uploadlogo');
 
     // Rotas do catálogo de produtos
     Route::get('admin/lista-produtos', 'ProdutosController@index')->name('admin.lista-produtos');
@@ -62,6 +65,7 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     Route::get('admin/form-edit-assinaturas/{id}', 'AssinaturasController@edit')->name('admin.form-edit-assinaturas');
     Route::put('assinaturas/update/{id}', 'AssinaturasController@update')->name('assinaturas.update');
     Route::delete('assinaturas/destroy/{id}', 'AssinaturasController@destroy')->name('assinaturas.destroy');
+    Route::post('uploadassinatura/{id}', 'AssinaturasController@upload_assinatura')->name('uploadassinatura');
 
     // Rotas dos Banners
     Route::get('admin/lista-banners', 'BannersController@index')->name('admin.lista-banners');

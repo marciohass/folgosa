@@ -83,13 +83,13 @@ class ProfileController extends Controller
         $modelo->user_id = auth()->user()->id;
 
         if($request->file('image')){
-		    $midia = $request->file('image');
+            $midia = $request->file('image');
             $midia->move(public_path('/image_perfil'), $request->file('image')->getClientOriginalName());
             $modelo->foto = $request->file('image')->getClientOriginalName();
         } else {
             $modelo->foto = $request->get('hidden_image');
         }
-
+/*
         if($request->file('logo')){
 		    $midia2 = $request->file('logo');
             $midia2->move(public_path('/image_logo'), $request->file('logo')->getClientOriginalName());
@@ -97,10 +97,28 @@ class ProfileController extends Controller
         } else {
             $modelo->logo = $request->get('hidden_logo');
         }
-
+*/
           $modelo->save();
 
           return redirect('admin/form-profile/'.$id)->with('success', 'Perfil foi atualizado!');
+    }
+
+    public function upload_logo(Request $request, $id) {
+
+        $modelo = Modelos::find($id);
+
+        $data = $request->get('logo');
+
+        $image_array_1 = explode(";", $data);
+        $image_array_2 = explode(",", $image_array_1[1]);
+        $data = base64_decode($image_array_2[1]);
+        $imageName = time() . '.png';
+        file_put_contents(public_path('/image_logo').'/'.$imageName, $data);
+
+        $modelo->logo = $imageName;
+        $modelo->save();
+
+        return '<img src="'.'/image_logo'.'/'.$imageName.'" class="img-thumbnail" />';
     }
 
     /**

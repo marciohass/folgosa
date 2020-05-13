@@ -54,9 +54,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- left column -->
                 <div class="col-md-12">
                   <!-- jquery validation -->
-                  <div class="card card-primary">
+                  <div class="card card-outline card-primary">
                     <div class="card-header">
-                      <h3 class="card-title">Edição de Redes Sociais </h3>
+                      <h3 class="card-title mb-0">Edição de Redes Sociais </h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -103,7 +103,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                       <!-- /.card-body -->
                       <div class="card-footer">
-                        <button type="submit" class="btn btn-primary" data-placement="top">Editar</button>
+                        <button type="submit" class="btn btn-success float-right" data-placement="top">Editar</button>
                       </div>
                     </form>
                   </div>

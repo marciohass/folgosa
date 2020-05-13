@@ -8,6 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>Admin | Dashboard</title>
     <!-- Font Awesome -->
@@ -16,6 +17,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     <link rel="stylesheet" href="http://localhost/folgosa/public/css/app.css">
+
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/crop/croppie.js"></script>
+    <link rel="stylesheet" href="/crop/croppie.css" />
 
 </head>
 
@@ -89,22 +94,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <label for="descricao">Descrição</label>
-                                    <input type="text" name="descricao" class="form-control" id="descricao" value="{{$profile->descricao}}" placeholder="Descrição">
+                                    <textarea name="descricao" class="form-control" id="descricao" rows="3" placeholder="Descrição">{{$profile->descricao}}</textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 text-right">Selecione foto de perfil</label>
-                                    <div class="col-md-8">
-                                        <input type="file" name="image" />
-                                        <img src="{{ URL::to('/') }}/image_perfil/{{ $profile->foto }}" class="img-thumbnail" width="100" />
-                                        <input type="hidden" name="hidden_image" value="{{ $profile->foto }}" />
+                                <div class="form-group col-sm-12">
+                                    <div class="card card-outline card-primary">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0">Selecione foto de perfil</h5>
+                                          </div>
+                                          <div class="card-body">
+                                            <input type="file" name="image" />
+                                            <img src="{{ URL::to('/') }}/image_perfil/{{ $profile->foto }}" class="img-thumbnail" width="100" />
+                                            <input type="hidden" name="hidden_image" value="{{ $profile->foto }}" />
+                                          </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 text-right">Selecione imagem de logotipo</label>
-                                    <div class="col-md-8">
-                                        <input type="file" name="logo" />
-                                        <img src="{{ URL::to('/') }}/image_logo/{{ $profile->logo }}" class="img-thumbnail" width="100" />
-                                        <input type="hidden" name="hidden_logo" value="{{ $profile->logo }}" />
+                                <div class="form-group col-sm-12">
+                                    <div class="card card-outline card-primary">
+                                        <div class="card-header">
+                                          <h5 class="card-title mb-0">Selecione imagem de logotipo</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="file" name="logo" id="logo" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <img src="{{ URL::to('/') }}/image_logo/{{ $profile->logo }}" class="img-thumbnail" width="180" />
+                                                    <input type="hidden" name="hidden_logo" value="{{ $profile->logo }}" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div id="uploaded_image"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
                                     </div>
                                 </div>
                                 <div class="form-row col-sm-12">
@@ -126,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Atualizar</button>
+                                <button type="submit" class="btn btn-success float-right">Atualizar</button>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -170,6 +193,79 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </footer>
     </div>
     <!-- ./wrapper -->
+    <div id="uploadimageModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Upload & Crop</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div id="image_demo" style="width:350px; margin-top:30px"></div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-success crop_image">Cortar e subir</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script>
+        (function(){
+
+            $image_crop = $('#image_demo').croppie({
+                enableExif: true,
+                viewport: {
+                width:180,
+                height:33,
+                type:'square' //circle
+                },
+                boundary:{
+                    width:180,
+                    height:33,
+                }
+            });
+
+            $('#logo').on('change', function(){
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                $image_crop.croppie('bind', {
+                    url: event.target.result
+                }).then(function(){
+                    console.log('jQuery bind complete');
+                });
+                }
+                reader.readAsDataURL(this.files[0]);
+                $('#uploadimageModal').modal('show');
+            });
+
+            $('.crop_image').click(function(event){
+                $image_crop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+                }).then(function(response){
+                $.ajax({
+                    url:'http://'+window.location.host+"/uploadlogo/"+{{$profile->id}},
+                    type: "POST",
+                    data: {"logo": response, "_token": "{{ csrf_token() }}"},
+                    success:function(data)
+                    {
+                        $('#uploadimageModal').modal('hide');
+                        $('#uploaded_image').html(data);
+                    },error: function (data, textStatus, errorThrown) {
+                        console.log(data);
+
+                    },
+
+                });
+                })
+            });
+
+        })();
+    </script>
     <script>
         (function() {
         'use strict';
@@ -189,10 +285,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         }, false);
         })();
     </script>
+
     <!-- jquery-validation -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="http://localhost/folgosa/public/js/app.js"></script>
+
     </body>
     </html>
