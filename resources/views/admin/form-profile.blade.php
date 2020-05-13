@@ -98,8 +98,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <div class="card card-outline card-primary">
-                                        <div class="card-header">
-                                            <h5 class="card-title mb-0">Selecione foto de perfil</h5>
+                                        <div class="card-header d-flex align-items-center">
+                                            <h5 class="card-title mb-0">Selecione foto de perfil &nbsp;</h5>
+                                            <small id="telefoneHelpBlock" class="form-text text-muted">
+                                                (imagem deve ser quadrada)
+                                            </small>
                                           </div>
                                           <div class="card-body">
                                             <input type="file" name="image" />
