@@ -15,6 +15,7 @@ use App\Models\Clientes;
 use PagSeguro;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailUser;
+use App\Mail\SendMailContact;
 
 class SiteController extends Controller
 {
@@ -90,6 +91,8 @@ class SiteController extends Controller
           ]);
 
         $contato->save();
+
+        Mail::to($request->get('email'))->send(new SendMailContact($contato));
 
         return redirect('contato')->with('success', 'Mensagem enviada!');
 
