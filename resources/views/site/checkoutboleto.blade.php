@@ -27,7 +27,7 @@
                 <div class="row">
                     <!-- title row -->
                     <div class="col-sm-6">
-                        <b>Cod. Pedido:</b> {{$item['invoice_number']}}<br>
+                        <h4><b>Cod. Pedido:</b> {{$item['invoice_number']}}</h4><br>
                     </div>
                     <!-- /.col -->
                     <div class="col-6">
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="row col-sm-12 invoice-info mt-3">
-                    <h4>Dados pessoais</h4>
+                    <h5>Dados pessoais</h5>
                 </div>
                 <!-- info row -->
                 <div class="row invoice-info">
@@ -118,7 +118,7 @@
 
                 <!-- info row -->
                 <div class="row col-sm-12 invoice-info mt-3">
-                    <h4>Dados de endereço</h4>
+                    <h5>Dados de endereço</h5>
                 </div>
                 <!-- /.row -->
                 <div class="row invoice-info">
