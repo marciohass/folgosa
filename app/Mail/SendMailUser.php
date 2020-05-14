@@ -17,10 +17,11 @@ class SendMailUser extends Mailable
      *
      * @return void
      */
-    public function __construct($data, $codigo)
+    public function __construct($data, $codigo, $link = null)
     {
         $this->data = $data;
         $this->codigo = $codigo;
+        $this->link = $link;
     }
 
     /**
@@ -36,7 +37,8 @@ class SendMailUser extends Mailable
 
         return $this->markdown('emails.welcome', [
             'data' => $this->data,
-            'codigo' => $this->codigo
+            'codigo' => $this->codigo,
+            'link' => $this->link
         ]);
     }
 }

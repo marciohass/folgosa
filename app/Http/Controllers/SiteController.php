@@ -284,7 +284,7 @@ class SiteController extends Controller
         $Data["senderCPF"]=$cpf;
         $Data["senderAreaCode"]=$ddd;
         $Data["senderPhone"]=$tel;
-        $Data["senderEmail"]="c51994292615446022931@sandbox.pagseguro.com.br";
+        $Data["senderEmail"]=$email;
         $Data["senderHash"]=$HashCard;
         $Data["shippingAddressStreet"]=$endereco;
         $Data["shippingAddressNumber"]=$numero;
@@ -379,7 +379,7 @@ class SiteController extends Controller
         $codigo_pedido = $reference;
 
         if(!empty($link)) {
-            Mail::to($email)->send(new SendMailUser($Data, $codigo));
+            Mail::to($email)->send(new SendMailUser($Data, $codigo, $link));
             return view('site.finalizado', compact(['modelo', 'socials', 'link', 'codigo', 'codigo_pedido']));
         }
 

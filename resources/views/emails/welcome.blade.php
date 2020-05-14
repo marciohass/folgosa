@@ -14,6 +14,11 @@
             CODIGO PAGSEGURO<br>
             <b>{{$codigo}}</b>
         </div>
+        @if(!empty($link))
+            @component('mail::button', ['url' => $link])
+            Gerar boleto
+            @endcomponent
+        @endif
             <div class="invoice p-3 mb-3" style="background: #fff; border: 1px solid rgba(0,0,0,.125); position: relative;">
                 <div class="row">
                     <table class="table table-striped" width="100%">
@@ -22,7 +27,13 @@
                             <td style="text-align: right"><b>Data: {{date('d/m/Y')}}</b></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><b>Qtd Parcelas: </b>{{$data['installmentQuantity']}} x R$ {{$data['installmentValue']}}</td>
+                            <td colspan="2"><b>Qtd Parcelas: </b>
+                                @if($data['paymentMethod'] == 'creditCard')
+                                    {{$data['installmentQuantity']}} x R$ {{$data['installmentValue']}}
+                                @elseif($data['paymentMethod'] == 'boleto')
+                                    1 x R$ {{$data['itemAmount1']}}
+                                @endif
+                            </td>
                         </tr>
                     </table>
 
