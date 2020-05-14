@@ -185,7 +185,7 @@
                 <div class="row invoice-info">
                     <div class="form-group col-md-2">
                         <label for="cep">CEP*</label>
-                        <input type="text" class="form-control" name="cep" id="cep" onkeypress="$(this).mask('00000-000');" required>
+                        <input type="text" class="form-control" name="cep" id="cep" required>
                         <div class="valid-feedback">
                             Ok!
                         </div>
