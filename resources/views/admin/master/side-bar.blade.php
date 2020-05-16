@@ -125,6 +125,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.lista-clientes') }}" class="nav-link">
+                    <i class="fas fa-list nav-icon"></i>
+                    <p>
+                        Clientes
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

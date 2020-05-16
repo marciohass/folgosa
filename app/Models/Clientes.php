@@ -18,6 +18,7 @@ class Clientes extends Model
         'complemento',
         'bairro',
         'cidade',
-        'uf'
+        'uf',
+        'email_mkt'
       ];
 }

@@ -115,7 +115,14 @@
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
-
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="email_mkt" name="email_mkt" value="1">
+                            <label class="form-check-label" for="email_mkt">Deseja receber minhas novidades no seu e-mail?</label>
+                        </div>
+                    </div>
+                </div>
                 <!-- info row -->
                 <div class="row col-sm-12 invoice-info mt-3">
                     <h5>Dados de endereço</h5>

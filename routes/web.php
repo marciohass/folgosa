@@ -91,4 +91,10 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     Route::get('admin/lista-venda-assinaturas', 'VendasController@showSubscritions')->name('admin.lista-venda-assinaturas');
     Route::get('admin/lista-venda-presentes', 'VendasController@showGifts')->name('admin.lista-venda-presentes');
 
+    // Rotas de Clientes
+    Route::get('admin/lista-clientes', 'ClientesController@index')->name('admin.lista-clientes');
+    Route::delete('clientes/destroy/{id}', 'ClientesController@destroy')->name('clientes.destroy');
+    Route::get('admin/show-cliente/{id}', 'ClientesController@show')->name('admin.show-cliente');
+    Route::get('admin/sendMailMkt', 'ClientesController@sendMailMkt')->name('admin.sendMailMkt');
+
 });

@@ -32,6 +32,7 @@ class SendMailUser extends Mailable
     public function build()
     {
         $this->subject('Pedido realizado com sucesso!');
+        $this->from('folgosa@gmail.com', 'Folgosa');
         $this->to($this->data['senderEmail'], $this->data['senderName']);
 
 

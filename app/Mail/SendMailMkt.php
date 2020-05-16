@@ -7,19 +7,24 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendMailContact extends Mailable
+class SendMailMkt extends Mailable
 {
     use Queueable, SerializesModels;
-    private $data;
-    private $codigo;
+
+    private $produto;
+    private $cli;
+    private $nm;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($contato)
+    public function __construct($produto, $email, $nome)
     {
-        $this->contato = $contato;
+        $this->produto = $produto;
+        $this->email = $email;
+        $this->nome = $nome;
     }
 
     /**
@@ -29,13 +34,13 @@ class SendMailContact extends Mailable
      */
     public function build()
     {
-        $this->subject('Contato do site');
+        $this->subject('Tem novidade no meu site!');
         $this->from('folgosa@gmail.com', 'Folgosa');
-        $this->to($this->contato['email'], $this->contato['nome']);
+        $this->to($this->email, $this->nome);
 
-
-        return $this->markdown('emails.contact', [
-            'data' => $this->contato
+        return $this->markdown('emails.novidade', [
+            'produto' => $this->produto,
+            'nome' => $this->nome
         ]);
     }
 }

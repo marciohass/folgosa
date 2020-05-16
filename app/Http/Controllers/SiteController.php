@@ -251,6 +251,7 @@ class SiteController extends Controller
         $tel = str_replace('-', '', $tel);
         $data_nascimento = explode('/', $request->get('bornDate'));
         $data_nascimento = $data_nascimento[2].'-'.$data_nascimento[1].'-'.$data_nascimento[0];
+        $email_mkt = $request->get('email_mkt');
 
         $cpf = str_replace('.', '', $request->get('cpf'));
         $cpf = str_replace('-', '', $cpf);
@@ -305,6 +306,10 @@ class SiteController extends Controller
         $Data["billingAddressState"]=$uf;
         $Data["billingAddressCountry"]="BRA";
 
+        if(empty($email_mkt) || $email_mkt == NULL) {
+            $email_mkt = 0;
+        }
+
         // monta array cliente
         $cliente = new Clientes([
             'nome' => $nome,
@@ -317,7 +322,8 @@ class SiteController extends Controller
             'complemento' => $complemento,
             'bairro' => $bairro,
             'cidade' => $cidade,
-            'uf' => $uf
+            'uf' => $uf,
+            'email_mkt' => $email_mkt
         ]);
 
         $cliente->save();
@@ -363,12 +369,6 @@ class SiteController extends Controller
         curl_close($Curl);
 
         $Xml=simplexml_load_string($Retorno);
-        /*
-        echo "
-        <script>
-            window.location.href='$Xml->paymentLink';
-        </script>";
-        */
 
         $modelo = Modelos::get();
 
@@ -404,6 +404,7 @@ class SiteController extends Controller
         $bornDate = $request->get('bornDate');
         $data_nascimento = explode('/', $request->get('bornDate'));
         $data_nascimento = $data_nascimento[2].'-'.$data_nascimento[1].'-'.$data_nascimento[0];
+        $email_mkt = $request->get('email_mkt');
 
         $cpf = str_replace('.', '', $request->get('cpf'));
         $cpf = str_replace('-', '', $cpf);
@@ -468,6 +469,10 @@ class SiteController extends Controller
         $Data["billingAddressState"]=$uf;
         $Data["billingAddressCountry"]="BRA";
 
+        if(empty($email_mkt) || $email_mkt == NULL) {
+            $email_mkt = 0;
+        }
+
         // monta array cliente
         $cliente = new Clientes([
             'nome' => $nome,
@@ -480,7 +485,8 @@ class SiteController extends Controller
             'complemento' => $complemento,
             'bairro' => $bairro,
             'cidade' => $cidade,
-            'uf' => $uf
+            'uf' => $uf,
+            'email_mkt' => $email_mkt
         ]);
 
         $cliente->save();

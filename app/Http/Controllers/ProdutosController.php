@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produtos;
 use App\Models\Modelos;
+use App\Models\Clientes;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailMkt;
 
 class ProdutosController extends Controller
 {
